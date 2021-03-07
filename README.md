@@ -1,9 +1,7 @@
-kitajchuk-web
-=============
+uncle-toms-letters
+==================
 
-> A fresh start to a dot com.
-
-<img src="./public/appicon.png" width="128" />
+> A family history project...
 
 **Stack:**
 
