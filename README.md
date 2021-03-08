@@ -13,7 +13,7 @@ uncle-toms-letters
 
 **Roadmap todos:**
 
-* Bootstrap the data using current snapshot from hard drive.
-* Better "CMS" than `json` files? Markdown, but how?
 * Timeline UI gradient feather (from bottom)
 * Stats component (fixed positioning?)
+* Bootstrap the data using current snapshot from hard drive.
+* Better "CMS" than `json` files? Markdown, but how?

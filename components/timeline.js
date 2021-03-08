@@ -3,7 +3,7 @@ import Link from 'next/link';
 const Timeline = ({ posts, open }) => {
   return (
     <nav className="text-center font-sans leading-loose px-5">
-      <div className="flex justify-center pb-36">
+      <div className="flex justify-center pb-28 sm:pb-36">
         {open ? (
           <img src="/mail_open.svg" width="33" />
         ) : (
@@ -19,8 +19,8 @@ const Timeline = ({ posts, open }) => {
             <li key={post.id} className="mb-24">
               <Link href={`/posts/${post.id}`}>
                 <a>
-                  <div className="text-2xl">{post.title}</div>
-                  <div className="text-base mt-2 font-light">( {post.documents} {text_d}, {post.translations} {text_t} )</div>
+                  <div className="text-xl sm:text-2xl">{post.title}</div>
+                  <div className="text-sm sm:text-base mt-2 font-light">( {post.documents} {text_d}, {post.translations} {text_t} )</div>
                 </a>
               </Link>
             </li>
@@ -29,8 +29,8 @@ const Timeline = ({ posts, open }) => {
             <li className="mb-24">
               <Link href="/">
                 <a>
-                  <div className="text-2xl">The end.</div>
-                  <div className="text-base mt-2 font-light">( back to the beginning )</div>
+                  <div className="text-xl sm:text-2xl">The end.</div>
+                  <div className="text-sm sm:text-base mt-2 font-light">( back to the beginning )</div>
                 </a>
               </Link>
             </li>

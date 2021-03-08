@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import AsyncImage from './asyncimage';
 
 const ActiveLang = ({ lang }) => {
   return (
@@ -28,8 +29,8 @@ const Translation = ({ id, data }) => {
   };
 
   return (
-    <section className="leading-loose pb-36">
-      <div className="text-2xl">{data.title}</div>
+    <section className="leading-loose pb-28 sm:pb-36">
+      <div className="text-xl sm:text-2xl">{data.title}</div>
       <div className="mt-3 mb-5 -mx-1 flex items-center">
         {english ? (
           <>
@@ -47,7 +48,7 @@ const Translation = ({ id, data }) => {
         {english ? renderText(data.english) : renderText(data.german)}
       </div>
       <div className="mt-10">
-        <img src={`/posts/${id}/${data.document}`} />
+        <AsyncImage src={`/posts/${id}/${data.document}`} />
       </div>
     </section>
   );

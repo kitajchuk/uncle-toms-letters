@@ -4,6 +4,7 @@ import Layout from '../../components/layout';
 import Masthead from '../../components/masthead';
 import Timeline from '../../components/timeline';
 import Article from '../../components/article';
+// import ImageController from '../../components/imagecontroller';
 import { getAllPostIds, getAllPosts, getPostData } from '../../lib/posts';
 
 export default function Post({ post, posts }) {
