@@ -21,17 +21,23 @@ const Translation = ({ id, data }) => {
   };
 
   const renderText = (texts) => {
+    const classes = ['my-4'];
+
+    if (texts.length === 1 && texts[0].length < 90) {
+      classes.push('text-center');
+    }
+
     return texts.map((text) => {
       return (
-        <p className="my-4">{text}</p>
+        <p className={classes.join(' ')}>{text}</p>
       );
     });
   };
 
   return (
     <section className="leading-loose pb-28 sm:pb-36">
-      <div className="text-xl sm:text-2xl">{data.title}</div>
-      <div className="mt-3 mb-5 -mx-1 flex items-center">
+      <div className="text-center text-xl sm:text-2xl">{data.title}</div>
+      <div className="mt-3 mb-5 -mx-1 flex items-center justify-center">
         {english ? (
           <>
             <ActiveLang lang="English" />

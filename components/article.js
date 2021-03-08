@@ -6,9 +6,6 @@ const Article = ({ post }) => {
 
   return (
     <article className="font-sans leading-loose px-5">
-      {hasAttachments ? (
-        <Attachments post={post} />
-      ) : null}
       <main className="container mx-auto max-w-screen-md">
         {post._translations.map((translation) => {
           return (
@@ -16,6 +13,9 @@ const Article = ({ post }) => {
           );
         })}
       </main>
+      {hasAttachments ? (
+        <Attachments post={post} />
+      ) : null}
     </article>
   );
 };
