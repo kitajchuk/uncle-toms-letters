@@ -1,50 +1,28 @@
-import Link from 'next/link';
 import Head from 'next/head';
 import Layout from '../components/layout';
+import Masthead from '../components/masthead';
+import Timeline from '../components/timeline';
 import { getAllPosts } from '../lib/posts';
 
-const Home = ({ allPostsData }) => {
+const Home = ({ posts }) => {
   return (
     <Layout>
       <Head>
         <title>Uncle Tom's Letters</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <header className="flex justify-center font-sans text-4xl py-36">
-        <h1>Uncle Tom's Letters</h1>
-      </header>
-      <nav className="text-center font-sans">
-        <div className="flex justify-center pb-36">
-          <img src="/mail.svg" width="33" />
-        </div>
-        <ul>
-          {allPostsData.map((post, i) => {
-            return (
-              <li key={post.id} className="leading-loose">
-                <Link href={`/posts/${post.id}`}>
-                  <a>
-                    <div className="text-2xl">{post.title}</div>
-                    <div>( {post.documents} documents, {post.translations} translations )</div>
-                  </a>
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
-      </nav>
-      <section className="text-center font-sans py-36">
-        <p>A work in progress...</p>
-      </section>
+      <Masthead title="Uncle Tom's Letters" subtitle="A World War II Era Family History Project" />
+      <Timeline posts={posts} open={false} />
     </Layout>
   )
 };
 
 export async function getStaticProps() {
-  const allPostsData = getAllPosts();
+  const posts = getAllPosts();
 
   return {
     props: {
-      allPostsData,
+      posts,
     },
   };
 }
