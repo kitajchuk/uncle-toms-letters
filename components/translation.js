@@ -47,9 +47,17 @@ const Translation = ({ id, data }) => {
       <div>
         {english ? renderText(data.english) : renderText(data.german)}
       </div>
-      <div className="mt-10">
-        <AsyncImage src={`/posts/${id}/${data.document}`} />
-      </div>
+      {data.documents ? data.documents.map((doc) => {
+        return (
+          <div className="mt-10">
+            <AsyncImage src={`/posts/${id}/${doc}`} />
+          </div>
+        );
+      }) : (
+        <div className="mt-10">
+          <AsyncImage src={`/posts/${id}/${data.document}`} />
+        </div>
+      )}
     </section>
   );
 };

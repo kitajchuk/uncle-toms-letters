@@ -32,3 +32,4 @@ yarn-error.log*
 # kitajchuk
 /data
 /public/data
+/utility.js
