@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { formatDate } from '../lib/date';
 
 const Timeline = ({ posts, open }) => {
   return (
@@ -19,7 +20,9 @@ const Timeline = ({ posts, open }) => {
             <li key={post.id} className="mb-24">
               <Link href={`/posts/${post.id}`}>
                 <a>
-                  <div className="text-xl sm:text-2xl">{post.title}</div>
+                  <div className="text-xl sm:text-2xl">
+                    {formatDate(post.id)}
+                  </div>
                   <div className="text-sm sm:text-base mt-2 font-light">( {post.documents} {text_d}, {post.translations} {text_t} )</div>
                 </a>
               </Link>

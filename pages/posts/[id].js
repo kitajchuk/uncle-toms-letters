@@ -4,7 +4,7 @@ import Layout from '../../components/layout';
 import Masthead from '../../components/masthead';
 import Timeline from '../../components/timeline';
 import Article from '../../components/article';
-// import ImageController from '../../components/imagecontroller';
+import { formatDate } from '../../lib/date';
 import { getAllPostIds, getAllPosts, getPostData } from '../../lib/posts';
 
 export default function Post({ post, posts }) {
@@ -17,7 +17,7 @@ export default function Post({ post, posts }) {
       <Head>
         <title>{post.title}</title>
       </Head>
-      <Masthead title={post.title} subtitle={subtitle} />
+      <Masthead title={formatDate(post.id)} subtitle={subtitle} />
       <Article post={post} />
       <Timeline posts={posts} open={true} />
     </Layout>

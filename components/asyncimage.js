@@ -26,9 +26,7 @@ const AsyncImage = ({ src }) => {
 
   }, [src]);
 
-  return (
-    <img ref={imageRef} />
-  );
+  return <img ref={imageRef} />;
 };
 
 export default AsyncImage;
