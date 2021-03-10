@@ -1,6 +1,12 @@
-import Image from 'next/image';
-import Link from 'next/link';
+import Navi from './navi';
+import BookmarkManager from './bookmarks';
 
 export default function Layout({ children }) {
-  return <>{children}</>;
+  return (
+    <>
+      <Navi />
+      {children}
+      <BookmarkManager />
+    </>
+  );
 }

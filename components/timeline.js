@@ -1,4 +1,6 @@
 import Link from 'next/link';
+import Star from './star';
+import Linkback from './linkback';
 import { formatDate } from '../lib/date';
 
 const Timeline = ({ posts, open }) => {
@@ -8,7 +10,7 @@ const Timeline = ({ posts, open }) => {
         {open ? (
           <img src="/mail_open.svg" width="33" />
         ) : (
-          <img src = "/mail.svg" width = "33" />
+          <Linkback />
         )}
       </div>
       <ul>
@@ -20,6 +22,9 @@ const Timeline = ({ posts, open }) => {
             <li key={post.id} className="mb-24">
               <Link href={`/posts/${post.id}`}>
                 <a>
+                  {post.recent ? (
+                    <Star />
+                  ) : null}
                   <div className="text-xl sm:text-2xl">
                     {formatDate(post.id)}
                   </div>

@@ -1,10 +1,12 @@
+import { useEffect, useState } from 'react';
 import Head from 'next/head';
-import Link from 'next/link';
 import Layout from '../../components/layout';
 import Masthead from '../../components/masthead';
 import Timeline from '../../components/timeline';
 import Article from '../../components/article';
+import Linkback from '../../components/linkback';
 import { formatDate } from '../../lib/date';
+import { getBookmarked, addBookmark, removeBookmark } from '../../components/bookmarks';
 import { getAllPostIds, getAllPosts, getPostData } from '../../lib/posts';
 
 export default function Post({ post, posts }) {
@@ -12,12 +14,41 @@ export default function Post({ post, posts }) {
   const text_t = post.translations > 1 ? 'translations' : 'translation';
   const subtitle = `( ${post.documents} ${text_d}, ${post.translations} ${text_t} )`;
 
+  const [bookmarked, setBookmarked] = useState(false);
+
+  const onClickBookmark = () => {
+    setBookmarked((bm) => {
+      const newBm = !bm;
+
+      if (newBm) {
+        addBookmark(post);
+      } else {
+        removeBookmark(post);
+      }
+
+      return newBm;
+    });
+  };
+
+  useEffect(() => {
+    setBookmarked((bm) => {
+      return getBookmarked(post);
+    });
+
+  }, [post]);
+
   return (
     <Layout>
       <Head>
         <title>{post.title}</title>
       </Head>
       <Masthead title={formatDate(post.id)} subtitle={subtitle} />
+      <div className="fixed top-5 right-5 cursor-pointer" onClick={onClickBookmark}>
+        <img src={bookmarked ? "/bookmark_saved.svg" : "/bookmark.svg"} width="16" />
+      </div>
+      <div className="flex justify-center pb-28 sm:pb-36">
+        <Linkback />
+      </div>
       <Article post={post} />
       <Timeline posts={posts} open={true} />
     </Layout>

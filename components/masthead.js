@@ -1,3 +1,5 @@
+import Star from './star';
+
 const Masthead = ({ title, subtitle }) => {
   return (
     <header className="text-center font-sans py-28 sm:py-36 px-5 leading-loose">
