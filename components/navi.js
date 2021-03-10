@@ -6,7 +6,7 @@ const Navi = () => {
   const isBookmarks = (router.route === '/bookmarks');
 
   return (
-    <nav className="text-center font-sans px-5 py-5">
+    <nav className="text-center font-sans text-sm sm:text-base font-light px-5 py-5">
       {isBookmarks ? (
         <Link href="/">
           <a className="underline" title="Home">Home</a>

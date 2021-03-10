@@ -40,7 +40,7 @@ export default function Post({ post, posts }) {
   return (
     <Layout>
       <Head>
-        <title>{post.title}</title>
+        <title>{formatDate(post.id)}</title>
       </Head>
       <Masthead title={formatDate(post.id)} subtitle={subtitle} />
       <div className="fixed top-5 right-5 cursor-pointer" onClick={onClickBookmark}>

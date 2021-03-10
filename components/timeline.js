@@ -3,7 +3,7 @@ import Star from './star';
 import Linkback from './linkback';
 import { formatDate } from '../lib/date';
 
-const Timeline = ({ posts, open }) => {
+const Timeline = ({ posts, open = false, bookmarks = false }) => {
   return (
     <nav className="text-center font-sans leading-loose px-5">
       <div className="flex justify-center pb-28 sm:pb-36">
@@ -33,15 +33,24 @@ const Timeline = ({ posts, open }) => {
               </Link>
             </li>
           );
-        }) : (
-            <li className="mb-24">
-              <Link href="/">
-                <a>
-                  <div className="text-xl sm:text-2xl">The end.</div>
-                  <div className="text-sm sm:text-base mt-2 font-light">( back to the beginning )</div>
-                </a>
-              </Link>
-            </li>
+        }) : bookmarks ? (
+          <li className="mb-24">
+            <div className="text-xl sm:text-2xl">Nothing here.</div>
+            <div className="flex justify-center text-sm sm:text-base mt-2 font-light">
+                <div className="mr-3">Use this icon</div>
+                <img src="/bookmark.svg" width="16" />
+                <div className="ml-3">to save posts here.</div>
+            </div>
+          </li>
+        ) : (
+          <li className="mb-24">
+            <Link href="/">
+              <a>
+                <div className="text-xl sm:text-2xl">The end.</div>
+                <div className="text-sm sm:text-base mt-2 font-light">( back to the beginning )</div>
+              </a>
+            </Link>
+          </li>
         )}
       </ul>
     </nav>

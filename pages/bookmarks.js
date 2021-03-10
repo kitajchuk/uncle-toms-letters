@@ -21,8 +21,8 @@ const Bookmarks = ({}) => {
         <title>Bookmarks</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Masthead title="Bookmarks" subtitle="Dates you saved for reference" />
-      <Timeline posts={posts} open={false} />
+      <Masthead title="Bookmarks" subtitle="Saved posts" />
+      <Timeline posts={posts} bookmarks={true} />
     </Layout>
   )
 };
