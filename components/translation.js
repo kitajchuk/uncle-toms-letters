@@ -1,15 +1,16 @@
 import { useState } from 'react';
 import AsyncImage from './asyncimage';
+import { withAnimate } from './animate';
 
-const ActiveLang = ({ lang }) => {
+const ActiveLang = ({lang}) => {
   return <div className="text-sm font-normal leading-normal mx-1 border border-black text-white bg-black px-2.5 py-0 rounded">{lang}</div>;
 };
 
-const InactiveLang = ({ lang, handler }) => {
+const InactiveLang = ({lang, handler}) => {
   return <div className="text-sm font-normal leading-normal mx-1 border border-black bg-white px-2.5 py-0 rounded cursor-pointer" onClick={handler}>{lang}</div>;
 };
 
-const Translation = ({ id, data }) => {
+const Translation = ({id, data}) => {
   const [english, setEnglish] = useState(true);
 
   const onClickLang = (e) => {
@@ -29,7 +30,7 @@ const Translation = ({ id, data }) => {
   };
 
   return (
-    <section className="leading-loose pb-28 sm:pb-36">
+    <section className="leading-loose pb-20 sm:pb-36">
       <div className="text-center text-xl sm:text-2xl">{data.title}</div>
       <div className="mt-3 mb-5 -mx-1 flex items-center justify-center">
         {english ? (
@@ -62,4 +63,4 @@ const Translation = ({ id, data }) => {
   );
 };
 
-export default Translation;
+export default withAnimate(Translation);

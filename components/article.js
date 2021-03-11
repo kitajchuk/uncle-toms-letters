@@ -1,7 +1,7 @@
 import Translation from './translation';
 import Attachments from './attachments';
 
-const Article = ({ post }) => {
+const Article = ({post}) => {
   return (
     <article className="font-sans leading-loose px-5">
       <main className="container mx-auto max-w-screen-md">

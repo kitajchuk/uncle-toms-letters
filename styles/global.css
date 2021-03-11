@@ -1,19 +1,9 @@
-.utl-img {
-  opacity: 0;
-  transition: opacity 240ms ease;
-  padding-bottom: 56.25%;
-}
-.utl-img.is-loaded {
-  opacity: 1;
-  padding-bottom: 0;
-}
-
-.utl-timeline li {
+.utl-ani {
   opacity: 0;
   transform: translate3d(0, 32px, 0);
-  transition: opacity 240ms ease, transform 240ms ease;
+  transition: opacity 400ms ease, transform 400ms ease;
 }
-.utl-timeline li.is-animated {
+.utl-ani.is-animated {
   opacity: 1;
   transform: translate3d(0, 0, 0);
 }

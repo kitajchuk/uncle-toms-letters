@@ -4,7 +4,7 @@ import Masthead from '../components/masthead';
 import Timeline from '../components/timeline';
 import { getAllPosts } from '../lib/posts';
 
-const Home = ({ posts }) => {
+const Home = ({posts}) => {
   return (
     <Layout>
       <Head>

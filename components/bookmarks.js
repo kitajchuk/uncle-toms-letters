@@ -13,7 +13,7 @@ const Bookmarks = () => {
 
   }, []);
 
-  return <></>;
+  return null;
 };
 
 export default Bookmarks;

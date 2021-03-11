@@ -9,7 +9,7 @@ import { formatDate } from '../../lib/date';
 import { getBookmarked, addBookmark, removeBookmark } from '../../lib/bookmarks';
 import { getAllPostIds, getAllPosts, getPostData } from '../../lib/posts';
 
-export default function Post({ post, posts }) {
+export default function Post({post, posts}) {
   const text_d = post.documents > 1 ? 'documents' : 'document';
   const text_t = post.translations > 1 ? 'translations' : 'translation';
   const subtitle = `( ${post.documents} ${text_d}, ${post.translations} ${text_t} )`;
@@ -46,7 +46,7 @@ export default function Post({ post, posts }) {
       <div className="fixed top-5 right-5 cursor-pointer" onClick={onClickBookmark}>
         <img src={bookmarked ? "/bookmark_saved.svg" : "/bookmark.svg"} width="16" />
       </div>
-      <div className="flex justify-center pb-28 sm:pb-36">
+      <div className="flex justify-center pb-20 sm:pb-36">
         <Linkback />
       </div>
       <Article post={post} />
@@ -64,7 +64,7 @@ export async function getStaticPaths() {
   };
 }
 
-export async function getStaticProps({ params }) {
+export async function getStaticProps({params}) {
   const post = getPostData(params.id);
   let posts = getAllPosts();
 

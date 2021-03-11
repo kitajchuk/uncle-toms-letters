@@ -5,7 +5,7 @@ import Masthead from '../components/masthead';
 import Timeline from '../components/timeline';
 import { getBookmarks } from '../lib/bookmarks';
 
-const Bookmarks = ({}) => {
+const Bookmarks = () => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
