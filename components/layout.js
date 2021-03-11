@@ -1,12 +1,12 @@
 import Navi from './navi';
-import BookmarkManager from './bookmarks';
+import Bookmarks from './bookmarks';
 
 export default function Layout({ children }) {
   return (
     <>
       <Navi />
       {children}
-      <BookmarkManager />
+      <Bookmarks />
     </>
   );
 }

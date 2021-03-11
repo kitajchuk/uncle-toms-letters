@@ -3,15 +3,13 @@ import Head from 'next/head';
 import Layout from '../components/layout';
 import Masthead from '../components/masthead';
 import Timeline from '../components/timeline';
-import { getBookmarks } from '../components/bookmarks';
+import { getBookmarks } from '../lib/bookmarks';
 
 const Bookmarks = ({}) => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    setPosts(() => {
-      return getBookmarks();
-    });
+    setPosts(getBookmarks());
 
   }, []);
 
@@ -21,7 +19,7 @@ const Bookmarks = ({}) => {
         <title>Bookmarks</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Masthead title="Bookmarks" subtitle="Saved posts" />
+      <Masthead title="Bookmarks" subtitle="Your saved posts" />
       <Timeline posts={posts} bookmarks={true} />
     </Layout>
   )

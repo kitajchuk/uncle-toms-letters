@@ -1,32 +1,46 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
-// The next/image component is neat, but kind of whack
-// The requirement for width/height is a bit limiting...
-// This could be refactored to load ONLY when in viewport!
-// Much like the default of properjs-imageloader.
-// const isVisible = (el) => {
-//   const bounds = el.getBoundingClientRect();
-//   return (bounds.top < window.innerHeight && bounds.bottom > 0);
-// }
 const AsyncImage = ({ src }) => {
   const imageRef = useRef();
+  const scRef = useRef();
+  const [loaded, setLoaded] = useState(false);
+
+  const loadImage = () => {
+    const img = new Image();
+
+    img.onload = () => {
+      imageRef.current.src = img.src;
+      setLoaded(true);
+    };
+
+    img.src = src;
+  };
 
   useEffect(() => {
     if (imageRef.current) {
-      const img = new Image();
-  
-      img.onload = () => {
-        imageRef.current.src = img.src;
-      };
-  
-      img.src = src;
+      import('properjs-scrollcontroller').then((ScrollController) => {
+        scRef.current = new ScrollController.default();
+
+        scRef.current.on('scroll', () => {
+          const bounds = imageRef.current.getBoundingClientRect();
+
+          if (bounds.top < window.innerHeight && bounds.bottom > 0) {
+            loadImage();
+            scRef.current.stop();
+          }
+        });
+      });
     }
 
-    // return () => console.log('<Image>::teardown');
+    return function cleanup() {
+      if (scRef.current) {
+        scRef.current.stop();
+      }
+    };
 
   }, [src]);
 
-  return <img ref={imageRef} />;
+  return <img ref={imageRef} className={['utl-img'].concat(loaded ? 'is-loaded' : '').join(' ')} />;
 };
 
 export default AsyncImage;

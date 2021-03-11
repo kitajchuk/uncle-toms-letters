@@ -6,12 +6,6 @@ uncle-toms-letters
 
 **Stack:**
 
-* Next.js
-* Preact [based on @developit](https://github.com/developit/nextjs-preact-demo)
+* Next.js & Vercel
+* Preact [based on @developit example](https://github.com/developit/nextjs-preact-demo)
 * Tailwind CSS
-
-
-**Roadmap todos:**
-
-* Timeline UI gradient feather (from bottom)
-* Bootstrap the data using current snapshot from hard drive.

@@ -1,52 +1,9 @@
 import { useEffect } from 'react';
+import { getBookmarks, setBookmarks } from '../lib/bookmarks';
 
-const store = 'utl-bookmarks';
-
-const setBookmarks = (data) => {
-  return window.localStorage.setItem(store, JSON.stringify(data));
-};
-
-export function getBookmarks() {
-  const data = window.localStorage.getItem(store);
-  return data ? JSON.parse(data) : null;
-}
-
-export function getBookmarked(post) {
-  const data = getBookmarks();
-  return data.find((bm) => {
-    return (bm.id === post.id);
-  }) ? true : false;
-};
-
-export function addBookmark(post) {
-  if (!getBookmarked(post)) {
-    const data = getBookmarks();
-
-    data.push({
-      id: post.id,
-      documents: post.documents,
-      translations: post.translations,
-      recent: post.recent,
-    });
-
-    setBookmarks(data);
-  }
-};
-
-export function removeBookmark(post) {
-  if (getBookmarked(post)) {
-    const data = getBookmarks();
-    const found = data.find((bm) => {
-      return (bm.id === post.id);
-    });
-
-    data.splice(data.indexOf(found), 1);
-
-    setBookmarks(data);
-  }
-};
-
-const BookmarkManager = ({}) => {
+// Creates the initial LocalStorage save...
+// Better way to do this?
+const Bookmarks = () => {
   useEffect(() => {
     const data = getBookmarks();
 
@@ -59,4 +16,4 @@ const BookmarkManager = ({}) => {
   return <></>;
 };
 
-export default BookmarkManager;
+export default Bookmarks;

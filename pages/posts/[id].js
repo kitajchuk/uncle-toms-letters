@@ -6,7 +6,7 @@ import Timeline from '../../components/timeline';
 import Article from '../../components/article';
 import Linkback from '../../components/linkback';
 import { formatDate } from '../../lib/date';
-import { getBookmarked, addBookmark, removeBookmark } from '../../components/bookmarks';
+import { getBookmarked, addBookmark, removeBookmark } from '../../lib/bookmarks';
 import { getAllPostIds, getAllPosts, getPostData } from '../../lib/posts';
 
 export default function Post({ post, posts }) {
