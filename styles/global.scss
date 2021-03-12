@@ -1,0 +1,10 @@
+.utl-ani {
+  opacity: 0;
+  transform: translate3d(0, 60px, 0);
+  transition: opacity 500ms ease-out, transform 500ms ease-out;
+
+  &.is-animated {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
