@@ -1,12 +1,13 @@
 import Navi from './navi';
-import Bookmarks from './bookmarks';
+import { withBookmarks } from './bookmarks';
 
-export default function Layout({children}) {
+const Layout = ({children}) => {
   return (
     <>
       <Navi />
       {children}
-      <Bookmarks />
     </>
   );
-}
+};
+
+export default withBookmarks(Layout);

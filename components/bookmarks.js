@@ -1,19 +1,20 @@
 import { useEffect } from 'react';
 import { getBookmarks, setBookmarks } from '../lib/bookmarks';
 
-// Creates the initial LocalStorage save...
-// Better way to do this?
-const Bookmarks = () => {
-  useEffect(() => {
-    const data = getBookmarks();
+// HOC
+// Usage: export default withBookmarks(LayoutComponent);
+// https://reactjs.org/docs/higher-order-components.html
+export function withBookmarks(WrappedComponent) {
+  return ({...props}) => {
+    useEffect(() => {
+      const data = getBookmarks();
 
-    if (!data) {
-      setBookmarks([]);
-    }
+      if (!data) {
+        setBookmarks([]);
+      }
 
-  }, []);
+    }, []);
 
-  return null;
+    return <WrappedComponent {...props} />;
+  };
 };
-
-export default Bookmarks;
