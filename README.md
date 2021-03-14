@@ -21,5 +21,5 @@ uncle-toms-letters
 * [Vercel](https://uncle-toms-letters.vercel.app/)
   * Badge: https://github.com/datejer/vercel-badge
 * [Netlify](https://uncle-toms-letters.netlify.app/)
-  * Build command: next build && next export
-  * Publish directory: out
+  * Build command: `next build && next export`
+  * Publish directory: `out`
