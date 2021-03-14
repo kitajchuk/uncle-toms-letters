@@ -3,11 +3,11 @@ import AsyncImage from './asyncimage';
 import { withAnimate } from './animate';
 
 const ActiveLang = ({lang}) => {
-  return <div className="text-sm font-normal leading-normal mx-1 border border-black text-white bg-black px-2.5 py-0 rounded">{lang}</div>;
+  return <div className="text-sm font-normal leading-normal mx-1 border border-black px-2.5 py-0 rounded">{lang}</div>;
 };
 
 const InactiveLang = ({lang, handler}) => {
-  return <div className="text-sm font-normal leading-normal mx-1 border border-black bg-white px-2.5 py-0 rounded cursor-pointer" onClick={handler}>{lang}</div>;
+  return <div className="text-sm font-normal leading-normal mx-1 border border-white px-2.5 py-0 rounded cursor-pointer" onClick={handler}>{lang}</div>;
 };
 
 const Translation = ({id, data}) => {
