@@ -18,13 +18,19 @@ const Translation = ({id, data}) => {
   };
 
   const renderText = (texts) => {
-    const classes = ['my-4'];
-
-    if (texts.length === 1 && texts[0].length < 90) {
-      classes.push('text-center');
-    }
-
     return texts.map((text) => {
+      const classes = ['my-4'];
+
+      if (texts.length === 1 && texts[0].length < 90) {
+        classes.push('text-center');
+      }
+
+      if (Array.isArray(text)) {
+        text = text.join('\n');
+        classes.push('whitespace-pre-line');
+        classes.push('leading-normal');
+      }
+
       return <p className={classes.join(' ')}>{text}</p>;
     });
   };
