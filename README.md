@@ -34,6 +34,7 @@ To group lines of text together with tighter leading for a page translation bloc
 ```yaml
 pages:
   - title: Page 1
+    document: document?.jpg
     english:
       - 
         - grouped_line 1
