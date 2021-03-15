@@ -1,0 +1,28 @@
+import { useState, useEffect } from 'react';
+
+const Notifications = ({}) => {
+  const [notified, setNotified] = useState(false);
+
+  const onClickIcon = () => {
+    window.Notification.requestPermission().then((permission) => {
+      if (permission === 'granted') {
+        setNotified(true);
+      }
+    });
+  };
+
+  useEffect(() => {
+    if (window.Notification.permission === 'granted') {
+      setNotified(true);
+    }
+
+  }, []);
+
+  return (
+    <div className="fixed top-5 left-5 cursor-pointer" onClick={onClickIcon}>
+      <img src={notified ? '/bell_subbed.svg' : '/bell.svg'} width="24" />
+    </div>
+  );
+};
+
+export default Notifications;

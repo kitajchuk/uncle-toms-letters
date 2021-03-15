@@ -8,12 +8,12 @@ const Navi = () => {
 
   return (
     <nav className="text-center font-sans text-sm sm:text-base font-light px-5 py-5">
-      <Link href="/bookmarks">
-        <a className={isBookmarks ? 'underline' : ''} title="Bookmarks">Bookmarks</a>
-      </Link>
-      <span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
       <Link href="/about">
         <a className={isAbout ? 'underline' : ''} title="About">About</a>
+      </Link>
+      <span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+      <Link href="/bookmarks">
+        <a className={isBookmarks ? 'underline' : ''} title="Bookmarks">Bookmarks</a>
       </Link>
     </nav>
   );
