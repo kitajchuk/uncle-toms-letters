@@ -1,11 +1,11 @@
 import Navi from './navi';
-import Notifications from './notifications';
+// import Notifications from './notifications';
 import { withBookmarks } from './bookmarks';
 
 const Layout = ({children}) => {
   return (
     <>
-      <Notifications />
+      {/* <Notifications /> */}
       <Navi />
       {children}
     </>

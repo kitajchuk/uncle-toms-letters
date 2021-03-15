@@ -17,7 +17,7 @@ const Notes = withAnimate(() => {
           <div className="ml-3">icon to return home.</div>
         </div>
       </li>
-      <li className="mb-24">
+      {/* <li className="mb-24">
         <div className="text-xl sm:text-2xl">
           Getting notifications
         </div>
@@ -31,7 +31,7 @@ const Notes = withAnimate(() => {
           <img src="/bell_subbed.svg" width="24" />
           <div className="ml-3">means you'll get notifications.</div>
         </div>
-      </li>
+      </li> */}
       <li className="mb-24">
         <div className="text-xl sm:text-2xl">Bookmarking posts</div>
         <div className="flex justify-center text-sm sm:text-base mt-2 font-light">
