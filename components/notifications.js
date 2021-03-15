@@ -4,16 +4,20 @@ const Notifications = ({}) => {
   const [notified, setNotified] = useState(false);
 
   const onClickIcon = () => {
-    window.Notification.requestPermission().then((permission) => {
-      if (permission === 'granted') {
-        setNotified(true);
-      }
-    });
+    if (window.Notification) {
+      window.Notification.requestPermission().then((permission) => {
+        if (permission === 'granted') {
+          setNotified(true);
+        }
+      });
+    }
   };
 
   useEffect(() => {
-    if (window.Notification.permission === 'granted') {
-      setNotified(true);
+    if (window.Notification) {
+      if (window.Notification.permission === 'granted') {
+        setNotified(true);
+      }
     }
 
   }, []);
