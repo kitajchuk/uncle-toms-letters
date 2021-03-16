@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import classNames from 'classnames';
 import AsyncImage from './asyncimage';
 import { withAnimate } from './animate';
 
@@ -19,19 +20,21 @@ const Translation = ({id, data}) => {
 
   const renderText = (texts) => {
     return texts.map((text) => {
-      const classes = ['my-4'];
+      const classes = {
+        'my-4': true,
+      };
 
       if (texts.length === 1 && texts[0].length < 90) {
-        classes.push('text-center');
+        classes['text-center'] = true;
       }
 
       if (Array.isArray(text)) {
         text = text.join('\n');
-        classes.push('whitespace-pre-line');
-        classes.push('leading-normal');
+        classes['whitespace-pre-line'] = true;
+        classes['leading-normal'] = true;
       }
 
-      return <p className={classes.join(' ')}>{text}</p>;
+      return <p className={classNames(classes)}>{text}</p>;
     });
   };
 
@@ -52,7 +55,7 @@ const Translation = ({id, data}) => {
         )}
       </div>
       <div>
-        {english ? renderText(data.english) : renderText(data.german)}
+        {renderText(english ? data.english : data.german)}
       </div>
       {data.documents ? data.documents.map((doc) => {
         return (

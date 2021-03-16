@@ -1,13 +1,18 @@
 import { useEffect, useRef, useState } from 'react';
+import classNames from 'classnames';
 
 // HOC
 // Usage: export default withAnimate(SomeComponent);
 // https://reactjs.org/docs/higher-order-components.html
 export function withAnimate(WrappedComponent) {
-  return ({...props}) => {
+  return ({ ...props }) => {
     const elRef = useRef();
     const scRef = useRef();
     const [animated, setAnimated] = useState(false);
+    const classes = {
+      'anim': true,
+      'is-animated': animated,
+    };
 
     useEffect(() => {
       if (elRef.current) {
@@ -34,11 +39,10 @@ export function withAnimate(WrappedComponent) {
           scRef.current.off('scroll');
         }
       };
-
     }, [elRef, scRef]);
 
     return (
-      <div ref={elRef} className={['utl-ani'].concat(animated ? 'is-animated' : '').join(' ')}>
+      <div ref={elRef} className={classNames(classes)}>
         <WrappedComponent {...props} />
       </div>
     );

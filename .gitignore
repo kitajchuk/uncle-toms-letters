@@ -33,3 +33,4 @@ yarn-error.log*
 /data
 /public/data
 /utility.js
+/.notes
