@@ -13,7 +13,7 @@ const Notes = withAnimate(() => {
         </div>
         <div className="flex justify-center text-sm sm:text-base mt-2 font-light">
           <div className="mr-3">Tap/click the</div>
-          <img src="/mail.svg" width="24" />
+          <img src="/svg/mail.svg" width="24" />
           <div className="ml-3">icon to return home.</div>
         </div>
       </li>
@@ -21,12 +21,12 @@ const Notes = withAnimate(() => {
         <div className="text-xl sm:text-2xl">Bookmarking posts</div>
         <div className="flex justify-center text-sm sm:text-base mt-2 font-light">
           <div className="mr-3">Tap/click the</div>
-          <img src="/bookmark.svg" width="16" />
+          <img src="/svg/bookmark.svg" width="16" />
           <div className="ml-3">icon to bookmark posts.</div>
         </div>
         <div className="flex justify-center text-sm sm:text-base mt-2 font-light">
           <div className="mr-3">This</div>
-          <img src="/bookmark_saved.svg" width="16" />
+          <img src="/svg/bookmark_saved.svg" width="16" />
           <div className="ml-3">means the post is bookmarked.</div>
         </div>
       </li>

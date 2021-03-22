@@ -24,7 +24,7 @@ const Notifications = ({}) => {
 
   return (
     <div className="fixed top-5 left-5 cursor-pointer" onClick={onClickIcon}>
-      <img src={notified ? '/bell_subbed.svg' : '/bell.svg'} width="24" />
+      <img src={notified ? '/svg/bell_subbed.svg' : '/svg/bell.svg'} width="24" />
     </div>
   );
 };

@@ -31,7 +31,7 @@ const Booklink = withAnimate(() => {
       <div className="text-xl sm:text-2xl">Nothing saved.</div>
       <div className="flex justify-center text-sm sm:text-base mt-2 font-light">
         <div className="mr-3">Use this icon</div>
-        <img src="/bookmark.svg" width="16" />
+        <img src="/svg/bookmark.svg" width="16" />
         <div className="ml-3">to save posts here.</div>
       </div>
     </li>
@@ -52,7 +52,7 @@ const Endlink = withAnimate(() => {
 });
 
 const Envelope = withAnimate(() => {
-  return <img src="/mail_open.svg" width="33" />;
+  return <img src="/svg/mail_open.svg" width="33" />;
 });
 
 const Timeline = ({posts, open = false, bookmarks = false}) => {

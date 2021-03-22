@@ -44,7 +44,7 @@ export default function Post({post, posts}) {
       </Head>
       <Masthead title={formatDate(post.id)} subtitle={subtitle} />
       <div className="fixed top-5 right-5 cursor-pointer" onClick={onClickBookmark}>
-        <img src={bookmarked ? "/bookmark_saved.svg" : "/bookmark.svg"} width="16" />
+        <img src={bookmarked ? "/svg/bookmark_saved.svg" : "/svg/bookmark.svg"} width="16" />
       </div>
       <div className="flex justify-center pb-20 sm:pb-36">
         <Linkback />
