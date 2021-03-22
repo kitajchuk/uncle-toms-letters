@@ -40,6 +40,16 @@ const Notes = withAnimate(() => {
       </li>
       <li className="mb-24">
         <div className="text-xl sm:text-2xl">
+          The latest translations
+        </div>
+        <div className="flex justify-center text-sm sm:text-base mt-2 font-light">
+          <div className="mr-3">Posts with a</div>
+          <img src="/svg/star.svg" width="24" />
+          <div className="ml-3">icon were recently added.</div>
+        </div>
+      </li>
+      <li className="mb-24">
+        <div className="text-xl sm:text-2xl">
           Made with Love
         </div>
         <div className="text-sm sm:text-base mt-2 font-light">
