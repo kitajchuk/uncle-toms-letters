@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import Layout from '../components/layout';
 import Masthead from '../components/masthead';
 import Linkback from '../components/linkback';
@@ -36,7 +35,7 @@ const Notes = withAnimate(() => {
         </div>
         <div className="text-sm sm:text-base mt-2 font-light">
           While on a post the proceeding timeline <br />will begin with the next chronological post date.
-          </div>
+        </div>
       </li>
       <li className="mb-24">
         <div className="text-xl sm:text-2xl">
@@ -54,7 +53,7 @@ const Notes = withAnimate(() => {
         </div>
         <div className="text-sm sm:text-base mt-2 font-light">
           &mdash;The Kitajchuk's
-          </div>
+        </div>
       </li>
     </ul>
   );
@@ -62,11 +61,7 @@ const Notes = withAnimate(() => {
 
 const About = () => {
   return (
-    <Layout>
-      <Head>
-        <title>About</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <Layout title="About">
       <Masthead title="About" subtitle="Uncle Tom's Letters" />
       <div className="flex justify-center pb-20 sm:pb-36">
         <Linkback />

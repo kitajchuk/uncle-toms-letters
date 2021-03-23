@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import Head from 'next/head';
 import Layout from '../../components/layout';
 import Masthead from '../../components/masthead';
 import Timeline from '../../components/timeline';
@@ -38,10 +37,7 @@ export default function Post({post, posts}) {
   }, [post]);
 
   return (
-    <Layout>
-      <Head>
-        <title>{formatDate(post.id)}</title>
-      </Head>
+    <Layout title={formatDate(post.id)}>
       <Masthead title={formatDate(post.id)} subtitle={subtitle} />
       <div className="fixed top-5 right-5 cursor-pointer" onClick={onClickBookmark}>
         <img src={bookmarked ? "/svg/bookmark_saved.svg" : "/svg/bookmark.svg"} width="16" />
