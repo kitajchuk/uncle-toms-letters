@@ -1,0 +1,57 @@
+version: 2.1
+
+orbs:
+  aws-s3: circleci/aws-s3@2.0.0
+  aws-cloudfront: topmonks/aws-cloudfront@1.0.0
+
+jobs:
+    build:
+        working_directory: ~/letters
+        docker:
+          - image: cimg/node:14.16.0
+        steps:
+            - checkout
+            - restore_cache:
+                name: Restore NPM Package Cache
+                keys:
+                  # when lock file changes, use increasingly general patterns to restore cache
+                  - node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
+            - run:
+                name: Install Dependencies
+                command: npm install
+            - save_cache:
+                  paths:
+                      - ~/usr/local/lib/node_modules  # location depends on npm version
+                  key: node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
+            - run:
+                name: Build Static Site
+                command: npm run build && npm run export
+            - persist_to_workspace:
+                root: ~/letters
+                paths:
+                    - .
+    deploy:
+        working_directory: ~/letters
+        docker:
+          - image: cimg/node:14.16.0
+        steps:
+            - attach_workspace:
+                at: ~/letters
+            - aws-s3/sync:
+                from: out
+                to: '${S3_BUCKET}'
+            - aws-cloudfront/invalidate:
+                distribution_id: '${DISTRIBUTION_ID}'
+                paths: '/*'
+
+workflows:
+    version: 2
+    build-deploy:
+        jobs:
+            - build
+            - deploy:
+                requires:
+                    - build
+                filters:
+                    branches:
+                        only: main

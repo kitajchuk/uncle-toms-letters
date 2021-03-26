@@ -5,11 +5,16 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "export": "next export",
+    "deploy": "env-cmd -f .env.production.local npm run deploy-s3",
+    "deploy-s3": "aws s3 sync ./out ${S3_BUCKET} --exclude '.*'",
+    "postdeploy-s3": "aws cloudfront create-invalidation --distribution-id ${DISTRIBUTION_ID} --paths '/*'"
   },
   "dependencies": {
     "classnames": "^2.2.6",
     "date-fns": "^2.19.0",
+    "env-cmd": "^10.1.0",
     "gray-matter": "^4.0.2",
     "next": "^10.0.0",
     "next-plugin-preact": "^3.0.3",
