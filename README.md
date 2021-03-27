@@ -19,7 +19,7 @@ uncle-toms-letters
   - Build command: `next build && next export`
   - Publish directory: `out`
 
-# AWS
+# AWS / CircleCI
 
 - [letters.kitajchuk.com](https://letters.kitajchuk.com)
 - [S3 Bucket](http://letters.kitajchuk.com.s3-website-us-west-2.amazonaws.com)
