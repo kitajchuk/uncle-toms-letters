@@ -12,20 +12,20 @@ jobs:
         steps:
             - checkout
             - restore_cache:
-                name: Restore NPM Package Cache
+                name: Restore Yarn Package Cache
                 keys:
-                    - node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
+                    - yarn-packages-{{ checksum "yarn.lock" }}
             - run:
                 name: Install Dependencies
-                command: npm install
+                command: yarn install --immutable
             - save_cache:
-                  name: Save NPM Package Cache
-                  key: node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
-                  paths:
-                      - ~/usr/local/lib/node_modules
+                name: Save Yarn Package Cache
+                key: yarn-packages-{{ checksum "yarn.lock" }}
+                paths:
+                    - ~/.cache/yarn
             - run:
                 name: Build Static Site
-                command: npm run build && npm run export
+                command: yarn build && yarn export
             - persist_to_workspace:
                 root: ~/letters
                 paths:
