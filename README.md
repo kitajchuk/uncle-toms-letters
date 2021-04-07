@@ -39,11 +39,11 @@ Deploy to S3 bucket with AWS CLI from a local machine. Environment variables sto
 
 ```shell
 # Build the static React app
-npm run build && npm run export
+yarn build && yarn export
 
 # S3_BUCKET={bucket}
 # DISTRIBUTION_ID={id}
-npm run deploy
+yarn deploy
 ```
 
 # Posts
