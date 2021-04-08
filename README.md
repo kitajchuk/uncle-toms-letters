@@ -15,8 +15,9 @@ uncle-toms-letters
 # Jamstack
 
 - [uncle-toms-letters.vercel.app](https://uncle-toms-letters.vercel.app/)
+  - Build command: `yarn download-s3 && next build`
 - [uncle-toms-letters.netlify.app](https://uncle-toms-letters.netlify.app/)
-  - Build command: `next build && next export`
+  - Build command: `yarn download-s3 && next build && next export`
   - Publish directory: `out`
 - Required env vars for the project:
   - `UTL_S3_REPOSITORY`
