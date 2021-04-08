@@ -25,7 +25,7 @@ jobs:
                     - ~/.cache/yarn
             - run:
                 name: Build Static Site
-                command: yarn build && yarn export
+                command: yarn download && yarn build && yarn export
             - persist_to_workspace:
                 root: ~/letters
                 paths:
@@ -39,9 +39,9 @@ jobs:
                 at: ~/letters
             - aws-s3/sync:
                 from: out
-                to: '${S3_BUCKET}'
+                to: '${UTL_S3_BUCKET}'
             - aws-cloudfront/invalidate:
-                distribution_id: '${DISTRIBUTION_ID}'
+                distribution_id: '${UTL_DISTRIBUTION_ID}'
                 paths: '/*'
 
 workflows:

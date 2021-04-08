@@ -60,12 +60,12 @@ const Translation = ({id, data}) => {
       {data.documents ? data.documents.map((doc) => {
         return (
           <div className="mt-10">
-            <AsyncImage src={`/posts/${id}/${doc}`} />
+            <AsyncImage src={`/assets/${id}/${doc}`} />
           </div>
         );
       }) : (
         <div className="mt-10">
-          <AsyncImage src={`/posts/${id}/${data.document}`} />
+          <AsyncImage src={`/assets/${id}/${data.document}`} />
         </div>
       )}
     </section>

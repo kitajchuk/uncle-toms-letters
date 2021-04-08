@@ -8,7 +8,7 @@ const Attachments = ({post}) => {
       <div className="grid grid-cols-1 gap-10 justify-items-center">
         {post.attachments.map((doc) => {
           return (
-            <AsyncImage src={`/posts/${post.id}/${doc}`} />
+            <AsyncImage src={`/assets/${post.id}/${doc}`} />
           );
         })}
       </div>

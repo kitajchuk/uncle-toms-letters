@@ -18,6 +18,11 @@ uncle-toms-letters
 - [uncle-toms-letters.netlify.app](https://uncle-toms-letters.netlify.app/)
   - Build command: `next build && next export`
   - Publish directory: `out`
+- Required env vars for the project:
+  - `UTL_S3_REPOSITORY`
+  - `UTL_AWS_ACCESS_KEY_ID`
+  - `UTL_AWS_SECRET_ACCESS_KEY`
+  - `UTL_AWS_REGION`
 
 # AWS / CircleCI
 
@@ -27,8 +32,12 @@ uncle-toms-letters
   - Using AWS Certificate Manager
   - Using [CircleCI](https://circleci.com) for CI/CD
     - Required env vars for the project:
-      - `S3_BUCKET`
-      - `DISTRIBUTION_ID`
+      - `UTL_S3_BUCKET`
+      - `UTL_S3_REPOSITORY`
+      - `UTL_DISTRIBUTION_ID`
+      - `UTL_AWS_ACCESS_KEY_ID`
+      - `UTL_AWS_SECRET_ACCESS_KEY`
+      - `UTL_AWS_REGION`
       - `AWS_ACCESS_KEY_ID`
       - `AWS_SECRET_ACCESS_KEY`
       - `AWS_REGION`
@@ -41,8 +50,8 @@ Deploy to S3 bucket with AWS CLI from a local machine. Environment variables sto
 # Build the static React app
 yarn build && yarn export
 
-# S3_BUCKET={bucket}
-# DISTRIBUTION_ID={id}
+# UTL_S3_BUCKET={bucket}
+# UTL_DISTRIBUTION_ID={id}
 yarn deploy
 ```
 
