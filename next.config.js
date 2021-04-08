@@ -6,4 +6,5 @@ module.exports = withPreact({
   experimental: {
     modern: true,
   },
+  trailingSlash: true,
 });
