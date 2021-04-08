@@ -33,5 +33,6 @@ yarn-error.log*
 /data
 /posts
 /public/assets
+/public/posts
 /utility.js
 /.notes
