@@ -38,6 +38,8 @@ jobs:
             - attach_workspace:
                 at: ~/letters
             - aws-s3/sync:
+                arguments: |
+                    --delete
                 from: out
                 to: '${UTL_S3_BUCKET}'
             - aws-cloudfront/invalidate:
