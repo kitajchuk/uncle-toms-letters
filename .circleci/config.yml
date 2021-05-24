@@ -1,8 +1,7 @@
 version: 2.1
 
 orbs:
-  aws-s3: circleci/aws-s3@2.0.0
-  aws-cloudfront: topmonks/aws-cloudfront@1.0.0
+    aws-cli: circleci/aws-cli@2.0.2
 
 jobs:
     build:
@@ -37,13 +36,13 @@ jobs:
         steps:
             - attach_workspace:
                 at: ~/letters
-            - aws-s3/sync:
-                arguments: --delete
-                from: out
-                to: '${UTL_S3_BUCKET}'
-            - aws-cloudfront/invalidate:
-                distribution_id: '${UTL_DISTRIBUTION_ID}'
-                paths: '/*'
+            - aws-cli/setup
+            - run:
+                name: AWS S3 Sync
+                command: aws s3 sync build ${UTL_S3_BUCKET} --delete
+            - run:
+                name: AWS CloudFront Invalidation
+                command: aws cloudfront create-invalidation --distribution-id ${UTL_DISTRIBUTION_ID} --paths '/*'
 
 workflows:
     version: 2
