@@ -39,7 +39,7 @@ jobs:
             - aws-cli/setup
             - run:
                 name: AWS S3 Sync
-                command: aws s3 sync build ${UTL_S3_BUCKET} --delete
+                command: aws s3 sync out ${UTL_S3_BUCKET} --delete
             - run:
                 name: AWS CloudFront Invalidation
                 command: aws cloudfront create-invalidation --distribution-id ${UTL_DISTRIBUTION_ID} --paths '/*'
