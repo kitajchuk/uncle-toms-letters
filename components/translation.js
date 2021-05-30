@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import classNames from 'classnames';
+import { nanoid } from 'nanoid';
+
 import AsyncImage from './asyncimage';
 import { withAnimate } from './animate';
 
@@ -14,7 +16,7 @@ const InactiveLang = ({lang, handler}) => {
 const Translation = ({id, data}) => {
   const [english, setEnglish] = useState(true);
 
-  const onClickLang = (e) => {
+  const onClickLang = () => {
     setEnglish(!english);
   };
 
@@ -34,7 +36,7 @@ const Translation = ({id, data}) => {
         classes['leading-normal'] = true;
       }
 
-      return <p className={classNames(classes)}>{text}</p>;
+      return <p key={nanoid()} className={classNames(classes)}>{text}</p>;
     });
   };
 
@@ -49,8 +51,8 @@ const Translation = ({id, data}) => {
           </>
         ) : (
           <>
-              <InactiveLang lang="English" handler={onClickLang} />
-              <ActiveLang lang="German" />
+            <InactiveLang lang="English" handler={onClickLang} />
+            <ActiveLang lang="German" />
           </>
         )}
       </div>
@@ -59,7 +61,7 @@ const Translation = ({id, data}) => {
       </div>
       {data.documents ? data.documents.map((doc) => {
         return (
-          <div className="mt-10">
+          <div key={id} className="mt-10">
             <AsyncImage src={`/assets/${id}/${doc}`} />
           </div>
         );

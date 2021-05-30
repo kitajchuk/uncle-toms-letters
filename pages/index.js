@@ -9,7 +9,7 @@ const Home = ({posts}) => {
       <Masthead title="Uncle Tom's Letters" subtitle="A World War II Era Family History Project" />
       <Timeline posts={posts} open={false} />
     </Layout>
-  )
+  );
 };
 
 export async function getStaticProps() {

@@ -10,7 +10,7 @@ const Page404 = () => {
         <Linkback />
       </div>
     </Layout>
-  )
+  );
 };
 
 export default Page404;

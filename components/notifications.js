@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const Notifications = ({}) => {
+const Notifications = () => {
   const [notified, setNotified] = useState(false);
 
   const onClickIcon = () => {

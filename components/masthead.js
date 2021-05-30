@@ -1,4 +1,3 @@
-import Star from './star';
 import { withAnimate } from './animate';
 
 const Masthead = ({title, subtitle}) => {

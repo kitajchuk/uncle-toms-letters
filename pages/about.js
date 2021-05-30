@@ -52,7 +52,7 @@ const Notes = withAnimate(() => {
           Made with Love
         </div>
         <div className="text-sm sm:text-base mt-2 font-light">
-          &mdash;The Kitajchuk's
+          &mdash;The Kitajchuk&rsquo;s
         </div>
       </li>
     </ul>
@@ -68,7 +68,7 @@ const About = () => {
       </div>
       <Notes />
     </Layout>
-  )
+  );
 };
 
 export default About;

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+
 import Star from './star';
 import Linkback from './linkback';
 import { formatDate } from '../lib/date';
@@ -67,7 +68,7 @@ const Timeline = ({posts, open = false, bookmarks = false}) => {
       </div>
       <ul>
         {posts.length ? posts.map((post) => {
-          return <Timelink key={post.id} post={post} />
+          return <Timelink key={post.id} post={post} />;
         }) : bookmarks ? (
           <Booklink />
         ) : (

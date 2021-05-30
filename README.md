@@ -5,14 +5,13 @@ uncle-toms-letters
 
 [![CircleCI Status](https://circleci.com/gh/kitajchuk/uncle-toms-letters.svg?style=shield&circle-token=e43bc41f26cb7d5ff448b2b82a61e7b12d1c3b1d)](https://app.circleci.com/pipelines/github/kitajchuk/uncle-toms-letters) [![Netlify Status](https://api.netlify.com/api/v1/badges/2186c3c6-d0ec-4537-ab4d-c1c5b6e571b1/deploy-status)](https://app.netlify.com/sites/uncle-toms-letters/deploys)
 
-# Stack
+## Stack
 
 - [Next.js](https://nextjs.org)
-- [Preact: @developit example](https://github.com/developit/nextjs-preact-demo)
 - [Tailwind CSS](https://tailwindcss.com)
 
 
-# Jamstack
+## Jamstack
 
 - [uncle-toms-letters.vercel.app](https://uncle-toms-letters.vercel.app/)
   - Build command: `yarn download-s3 && next build`
@@ -25,7 +24,7 @@ uncle-toms-letters
   - `UTL_AWS_SECRET_ACCESS_KEY`
   - `UTL_AWS_REGION`
 
-# AWS / CircleCI
+## AWS / CircleCI
 
 - [letters.kitajchuk.com](https://letters.kitajchuk.com)
 - [S3 Bucket](http://letters.kitajchuk.com.s3-website-us-west-2.amazonaws.com)
@@ -56,7 +55,7 @@ yarn build && yarn export
 yarn deploy
 ```
 
-# Posts
+## Posts
 
 The basic `yaml` structure for a post looks like this:
 

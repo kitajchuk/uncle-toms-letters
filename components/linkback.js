@@ -1,4 +1,5 @@
 import Link from 'next/link';
+
 import { withAnimate } from './animate';
 
 const Linkback = () => {

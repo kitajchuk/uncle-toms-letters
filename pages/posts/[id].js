@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+
 import Layout from '../../components/layout';
 import Masthead from '../../components/masthead';
 import Timeline from '../../components/timeline';
@@ -30,7 +31,7 @@ export default function Post({post, posts}) {
   };
 
   useEffect(() => {
-    setBookmarked((bm) => {
+    setBookmarked(() => {
       return getBookmarked(post);
     });
 
@@ -40,7 +41,7 @@ export default function Post({post, posts}) {
     <Layout title={formatDate(post.id)}>
       <Masthead title={formatDate(post.id)} subtitle={subtitle} />
       <div className="fixed top-5 right-5 z-10 cursor-pointer" onClick={onClickBookmark}>
-        <img src={bookmarked ? "/svg/bookmark_saved.svg" : "/svg/bookmark.svg"} width="16" />
+        <img src={bookmarked ? '/svg/bookmark_saved.svg' : '/svg/bookmark.svg'} width="16" />
       </div>
       <div className="flex justify-center pb-20 sm:pb-36">
         <Linkback />

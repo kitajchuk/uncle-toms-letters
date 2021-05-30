@@ -1,14 +1,15 @@
 import Head from 'next/head';
 import Navi from './navi';
+
 import { withBookmarks } from './bookmarks';
 
-const Layout = ({children, title = "Uncle Tom's Letters"}) => {
+const Layout = ({children, title = 'Uncle Tom\'s Letters'}) => {
   return (
     <>
       <Head>
         <title>{title}</title>
         <link rel="icon" href="/favicon.ico" />
-        <meta charset="utf-8" />
+        <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#000000" />
         <meta
