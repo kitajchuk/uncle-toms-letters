@@ -28,7 +28,7 @@ jobs:
             - persist_to_workspace:
                 root: ~/letters
                 paths:
-                    - .
+                    - out
     deploy:
         working_directory: ~/letters
         docker:
