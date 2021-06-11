@@ -7,7 +7,9 @@ uncle-toms-letters
 
 ## Stack
 
-This is a [Next.js](https://nextjs.org) application using [Preact](https://preactjs.com/) for Production builds which reduces JavaScript payload sizes by more than half for deployments! Formerly I was using the demo by [@developit](https://github.com/developit/nextjs-preact-demo) but I've switched to a model that only uses Preact when generating the Production builds from this article [here](https://darrenwhite.dev/blog/nextjs-replace-react-with-preact). I'm also purely using [Tailwind CSS](https://tailwindcss.com).
+- [Next.js](https://nextjs.org)
+- [Preact](https://preactjs.com/)
+- [Tailwind CSS](https://tailwindcss.com)
 
 
 ## Jamstack
