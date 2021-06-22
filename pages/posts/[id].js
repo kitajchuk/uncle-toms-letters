@@ -68,7 +68,7 @@ export async function getStaticProps({params}) {
   // Maybe there's a better way to do this...?
   let index = 0;
 
-  posts.find((json, i) => {
+  posts.forEach((json, i) => {
     if (json.id === params.id) {
       index = i + 1;
     }
