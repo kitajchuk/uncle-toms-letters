@@ -26,37 +26,8 @@ uncle-toms-letters
   - `UTL_AWS_ACCESS_KEY_ID`
   - `UTL_AWS_SECRET_ACCESS_KEY`
   - `UTL_AWS_REGION`
-
-## AWS / CircleCI
-
-- [letters.kitajchuk.com](https://letters.kitajchuk.com)
-- [S3 Bucket](http://letters.kitajchuk.com.s3-website-us-west-2.amazonaws.com)
-- [S3+CloudFront+SSL](https://letters.kitajchuk.com)
-  - Using AWS Certificate Manager
-  - Using [CircleCI](https://circleci.com) for CI/CD
-    - Required env vars for the project:
-      - `UTL_S3_BUCKET`
-      - `UTL_S3_REPOSITORY`
-      - `UTL_DISTRIBUTION_ID`
-      - `UTL_AWS_ACCESS_KEY_ID`
-      - `UTL_AWS_SECRET_ACCESS_KEY`
-      - `UTL_AWS_REGION`
-      - `AWS_ACCESS_KEY_ID`
-      - `AWS_SECRET_ACCESS_KEY`
-      - `AWS_REGION`
-    - Using [aws-s3 orb](https://circleci.com/developer/orbs/orb/circleci/aws-s3)
-    - Using [aws-cloudfront orb](https://circleci.com/developer/orbs/orb/topmonks/aws-cloudfront)
-
-Deploy to S3 bucket with AWS CLI from a local machine. Environment variables stored in `.env.production.local` exposed with `env-cmd`.
-
-```shell
-# Build the static React app
-yarn build && yarn export
-
-# UTL_S3_BUCKET={bucket}
-# UTL_DISTRIBUTION_ID={id}
-yarn deploy
-```
+  - `UTL_S3_BUCKET`
+  - `UTL_DISTRIBUTION_ID`
 
 ## Posts
 
