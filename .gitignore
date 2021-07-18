@@ -25,14 +25,11 @@ yarn-error.log*
 
 # local env files
 .env.local
-.env.development.local
-.env.test.local
-.env.production.local
+.env.*.local
 
 # kitajchuk
-/data
-/posts
-/public/assets
-/public/posts
-/utility.js
-/.notes
+/.idea/
+/data/
+/posts/
+/public/assets/
+/public/posts/

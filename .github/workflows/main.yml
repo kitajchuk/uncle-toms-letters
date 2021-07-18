@@ -1,0 +1,43 @@
+name: github
+
+on:
+  push:
+    branches:
+      - 'main'
+  pull_request:
+    branches:
+      - '**'
+  workflow_dispatch:
+
+jobs:
+  build:
+    environment: Production
+    # Available tools on this machine:
+    # https://github.com/actions/virtual-environments/blob/main/images/linux/Ubuntu2004-README.md
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup and Install
+        run: |
+          export UTL_AWS_REGION="${{ secrets.UTL_AWS_REGION }}"
+          export UTL_S3_REPOSITORY="${{ secrets.UTL_S3_REPOSITORY }}"
+          export UTL_AWS_ACCESS_KEY_ID="${{ secrets.UTL_AWS_ACCESS_KEY_ID }}"
+          export UTL_AWS_SECRET_ACCESS_KEY="${{ secrets.UTL_AWS_SECRET_ACCESS_KEY }}"
+          yarn install --immutable
+          yarn download-s3
+      - name: Lint, Test and Build
+        run: |
+          yarn build
+          yarn export
+      - name: Configure AWS CLI
+        if: ${{ github.ref == 'refs/heads/main' }}
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.UTL_AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.UTL_AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.UTL_AWS_REGION }}
+      - name: Deploy Production
+        if: ${{ github.ref == 'refs/heads/main' }}
+        run: |
+          aws s3 sync out ${{ secrets.UTL_S3_BUCKET }} --delete
+          aws cloudfront create-invalidation --distribution-id ${{ secrets.UTL_DISTRIBUTION_ID }} --paths '/*'
