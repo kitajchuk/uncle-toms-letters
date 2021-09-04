@@ -18,7 +18,7 @@ jobs:
                     - yarn-packages-v1-
             - run:
                 name: Install Dependencies
-                command: yarn install --immutable
+                command: yarn install --frozen-lockfile --cache-folder ~/.cache/yarn
             - save_cache:
                 name: Save Yarn/Node Cache
                 key: yarn-packages-{{ .Branch }}-{{ checksum "yarn.lock" }}
