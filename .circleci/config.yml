@@ -11,17 +11,20 @@ jobs:
         steps:
             - checkout
             - restore_cache:
-                name: Restore Yarn Package Cache
+                name: Restore Yarn/Node Cache
                 keys:
-                    - yarn-packages-{{ checksum "yarn.lock" }}
+                    - yarn-packages-{{ .Branch }}-{{ checksum "yarn.lock" }}
+                    - yarn-packages-v1-{{ .Branch }}-
+                    - yarn-packages-v1-
             - run:
                 name: Install Dependencies
                 command: yarn install --immutable
             - save_cache:
-                name: Save Yarn Package Cache
-                key: yarn-packages-{{ checksum "yarn.lock" }}
+                name: Save Yarn/Node Cache
+                key: yarn-packages-{{ .Branch }}-{{ checksum "yarn.lock" }}
                 paths:
                     - ~/.cache/yarn
+                    - node_modules
             - run:
                 name: Build Static Site
                 command: yarn download-s3 && yarn build && yarn export
