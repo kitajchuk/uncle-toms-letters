@@ -1,5 +1,7 @@
 import Link from 'next/link';
 
+import { nanoid } from 'nanoid';
+
 import Star from './star';
 import Linkback from './linkback';
 import { formatDate } from '../lib/date';
@@ -68,7 +70,7 @@ const Timeline = ({posts, open = false, bookmarks = false}) => {
       </div>
       <ul>
         {posts.length ? posts.map((post) => {
-          return <Timelink key={post.id} post={post} />;
+          return <Timelink key={nanoid()} post={post} />;
         }) : bookmarks ? (
           <Booklink />
         ) : (

@@ -6,7 +6,7 @@ import { getAllPosts } from '../lib/posts';
 const Home = ({posts}) => {
   return (
     <Layout>
-      <Masthead title="Uncle Tom's Letters" subtitle="A World War II Era Family History Project" />
+      <Masthead title="Uncle Tom's Letters" subtitle="The Story of Eva and Fritz" />
       <Timeline posts={posts} open={false} />
     </Layout>
   );

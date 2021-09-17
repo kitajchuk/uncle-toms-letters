@@ -1,3 +1,5 @@
+import { nanoid } from 'nanoid';
+
 import Translation from './translation';
 import Attachments from './attachments';
 
@@ -6,7 +8,7 @@ const Article = ({post}) => {
     <article className="font-sans leading-loose px-5">
       <main className="container mx-auto max-w-screen-md">
         {post.pages.map((translation) => {
-          return <Translation key={post.id} id={post.id} data={translation} />;
+          return <Translation key={nanoid()} id={post.id} data={translation} />;
         })}
       </main>
       {post.attachments ? (

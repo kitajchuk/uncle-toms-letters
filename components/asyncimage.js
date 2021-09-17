@@ -7,7 +7,9 @@ const AsyncImage = ({src}) => {
     const img = new Image();
 
     img.onload = () => {
-      imageRef.current.src = img.src;
+      if (imageRef.current) {
+        imageRef.current.src = img.src;
+      }
     };
 
     img.src = src;

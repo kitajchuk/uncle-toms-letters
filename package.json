@@ -10,13 +10,13 @@
     "build": "next build",
     "start": "next start",
     "export": "next export",
-    "deploy": "env-cmd -f .env.production.local npm run deploy-s3",
+    "deploy": "env-cmd -f .env.local yarn deploy-s3",
     "deploy-s3": "aws s3 sync ./out ${UTL_S3_BUCKET} --exclude '.*'",
     "postdeploy-s3": "aws cloudfront create-invalidation --distribution-id ${UTL_DISTRIBUTION_ID} --paths '/*'",
-    "upload": "env-cmd -f .env.production.local npm run upload-s3",
-    "upload-s3": "aws s3 sync ./posts s3://${UTL_S3_REPOSITORY}/posts --exclude '*.DS_Store' --dryrun",
-    "postupload-s3": "aws s3 sync ./public/assets s3://${UTL_S3_REPOSITORY}/public/assets --exclude '*.DS_Store' --dryrun",
-    "download": "env-cmd -f .env.production.local npm run download-s3",
+    "upload": "env-cmd -f .env.local yarn upload-s3",
+    "upload-s3": "aws s3 sync ./posts s3://${UTL_S3_REPOSITORY}/posts --exclude '*.DS_Store' --delete",
+    "postupload-s3": "aws s3 sync ./public/assets s3://${UTL_S3_REPOSITORY}/public/assets --exclude '*.DS_Store' --delete",
+    "download": "env-cmd -f .env.local yarn download-s3",
     "download-s3": "node ./lib/aws.js"
   },
   "dependencies": {
