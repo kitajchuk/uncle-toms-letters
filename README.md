@@ -7,4 +7,4 @@ uncle-toms-letters
 [![CI](https://github.com/kitajchuk/uncle-toms-letters/actions/workflows/main.yml/badge.svg)](https://github.com/kitajchuk/uncle-toms-letters/actions/workflows/main.yml)
 [![CircleCI Status](https://circleci.com/gh/kitajchuk/uncle-toms-letters.svg?style=shield&circle-token=e43bc41f26cb7d5ff448b2b82a61e7b12d1c3b1d)](https://app.circleci.com/pipelines/github/kitajchuk/uncle-toms-letters)
 
-<img width="100%" src="./public/envelope.PNG" />
+<img width="100%" src="./public/envelope.png" />
