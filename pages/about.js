@@ -11,7 +11,7 @@ const Notes = withAnimate(() => {
           A true story
         </div>
         <div className="flex justify-center text-sm sm:text-base mt-2 font-light">
-          Being translated and documented with care.
+          Being translated and archived with care.
         </div>
       </li>
       <li className="mb-24">
