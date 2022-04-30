@@ -8,6 +8,14 @@ const Notes = withAnimate(() => {
     <ul className="text-center font-sans leading-loose px-5">
       <li className="mb-24">
         <div className="text-xl sm:text-2xl">
+          A true story
+        </div>
+        <div className="flex justify-center text-sm sm:text-base mt-2 font-light">
+          Being translated and documented with care.
+        </div>
+      </li>
+      <li className="mb-24">
+        <div className="text-xl sm:text-2xl">
           Anywhere you are
         </div>
         <div className="flex justify-center text-sm sm:text-base mt-2 font-light">
