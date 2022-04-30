@@ -12,15 +12,9 @@ const Layout = ({children, title = 'Uncle Tom\'s Letters'}) => {
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#000000" />
-        <meta
-          name="description"
-          content="A World War II Era Family History Project"
-        />
+        <meta name="description" content="The story of Eva and Fritz." />
+        <meta name="image" property="og:image" content="https://letters.kitajchuk.com/letters.png" />
         <link rel="apple-touch-icon" href="/logo192.png" />
-        {/*
-          manifest.json provides metadata used when your web app is installed on a
-          user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-        */}
         <link rel="manifest" href="/manifest.json" />
       </Head>
       <Navi />
