@@ -1,6 +1,6 @@
-import Layout from '../components/layout';
-import Masthead from '../components/masthead';
-import Linkback from '../components/linkback';
+import Layout from '../src/components/layout';
+import Masthead from '../src/components/masthead';
+import Linkback from '../src/components/linkback';
 
 const Page404 = () => {
   return (

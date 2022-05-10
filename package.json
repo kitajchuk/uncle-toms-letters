@@ -4,20 +4,20 @@
   "private": true,
   "scripts": {
     "prepare": "husky install",
-    "lint": "eslint components pages lib --ext js",
+    "lint": "eslint src/components src/lib pages --ext js",
     "dev": "next dev",
     "prebuild": "yarn lint",
     "build": "next build",
     "start": "next start",
     "export": "next export",
-    "deploy": "env-cmd -f .env.local yarn deploy-s3",
+    "deploy": "env-cmd -f .env yarn deploy-s3",
     "deploy-s3": "aws s3 sync ./out ${UTL_S3_BUCKET} --exclude '.*'",
     "postdeploy-s3": "aws cloudfront create-invalidation --distribution-id ${UTL_DISTRIBUTION_ID} --paths '/*'",
-    "upload": "env-cmd -f .env.local yarn upload-s3",
+    "upload": "env-cmd -f .env yarn upload-s3",
     "upload-s3": "aws s3 sync ./posts s3://${UTL_S3_REPOSITORY}/posts --exclude '*.DS_Store' --delete",
     "postupload-s3": "aws s3 sync ./public/assets s3://${UTL_S3_REPOSITORY}/public/assets --exclude '*.DS_Store' --delete",
-    "download": "env-cmd -f .env.local yarn download-s3",
-    "download-s3": "node ./lib/aws.js"
+    "download": "env-cmd -f .env yarn download-s3",
+    "download-s3": "node ./scripts/aws.js"
   },
   "dependencies": {
     "classnames": "^2.2.6",
@@ -43,10 +43,16 @@
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "gray-matter": "^4.0.2",
+    "lint-staged": "^12.4.1",
     "mkdirp": "^1.0.4",
     "postcss": "^8.3.0",
     "sass": "^1.34.0",
+    "sharp": "^0.30.4",
+    "shelljs": "^0.8.5",
     "tailwindcss": "^2.1.2"
+  },
+  "lint-staged": {
+    "*.js": "yarn lint"
   },
   "eslintConfig": {
     "settings": {

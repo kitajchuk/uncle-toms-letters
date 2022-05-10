@@ -1,7 +1,7 @@
-import Layout from '../components/layout';
-import Masthead from '../components/masthead';
-import Timeline from '../components/timeline';
-import { getAllPosts } from '../lib/posts';
+import Layout from '../src/components/layout';
+import Masthead from '../src/components/masthead';
+import Timeline from '../src/components/timeline';
+import { getAllPosts } from '../src/lib/posts';
 
 const Home = ({posts}) => {
   return (

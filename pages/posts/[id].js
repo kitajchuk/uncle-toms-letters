@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 
-import Layout from '../../components/layout';
-import Masthead from '../../components/masthead';
-import Timeline from '../../components/timeline';
-import Article from '../../components/article';
-import Linkback from '../../components/linkback';
-import { formatDate } from '../../lib/date';
-import { getBookmarked, addBookmark, removeBookmark } from '../../lib/bookmarks';
-import { getAllPostIds, getAllPosts, getPostData } from '../../lib/posts';
+import Layout from '../../src/components/layout';
+import Masthead from '../../src/components/masthead';
+import Timeline from '../../src/components/timeline';
+import Article from '../../src/components/article';
+import Linkback from '../../src/components/linkback';
+import { formatDate } from '../../src/lib/date';
+import { getBookmarked, addBookmark, removeBookmark } from '../../src/lib/bookmarks';
+import { getAllPostIds, getAllPosts, getPostData } from '../../src/lib/posts';
 
 export default function Post({post, posts}) {
   const text_d = post.documents > 1 ? 'documents' : 'document';

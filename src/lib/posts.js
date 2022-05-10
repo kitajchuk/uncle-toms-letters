@@ -3,8 +3,12 @@ const path = require('path');
 const matter = require('gray-matter');
 const postsDir = path.join(process.cwd(), 'posts');
 
+function readDirectory(dir) {
+  return fs.readdirSync(dir).filter((file) => !/^\./.test(file));
+}
+
 export function getAllPostIds() {
-  const fileNames = fs.readdirSync(postsDir);
+  const fileNames = readDirectory(postsDir);
 
   return fileNames.map((fileName) => {
     return {
@@ -16,7 +20,7 @@ export function getAllPostIds() {
 }
 
 export function getAllPosts() {
-  const fileNames = fs.readdirSync(postsDir);
+  const fileNames = readDirectory(postsDir);
 
   return fileNames.map((fileName) => {
     const id = fileName.replace(/\.md$/, '');

@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 
-import Layout from '../components/layout';
-import Masthead from '../components/masthead';
-import Timeline from '../components/timeline';
-import { getBookmarks } from '../lib/bookmarks';
+import Layout from '../src/components/layout';
+import Masthead from '../src/components/masthead';
+import Timeline from '../src/components/timeline';
+import { getBookmarks } from '../src/lib/bookmarks';
 
 const Bookmarks = () => {
   const [posts, setPosts] = useState([]);

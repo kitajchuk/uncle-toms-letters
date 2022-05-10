@@ -1,7 +1,7 @@
-import Layout from '../components/layout';
-import Masthead from '../components/masthead';
-import Linkback from '../components/linkback';
-import { withAnimate } from '../components/animate';
+import Layout from '../src/components/layout';
+import Masthead from '../src/components/masthead';
+import Linkback from '../src/components/linkback';
+import { withAnimate } from '../src/components/animate';
 
 const Notes = withAnimate(() => {
   return (

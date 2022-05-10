@@ -1,5 +1,5 @@
 // Example usage:
-// node post.js 1938-05-05
+// node ./scripts/post.js 1938-05-05
 
 const fs = require('fs');
 const path = require('path');
