@@ -16,7 +16,8 @@
     "upload-s3": "aws s3 sync ./posts s3://${UTL_S3_REPOSITORY}/posts --exclude '*.DS_Store' --delete",
     "postupload-s3": "aws s3 sync ./public/assets s3://${UTL_S3_REPOSITORY}/public/assets --exclude '*.DS_Store' --delete",
     "download": "env-cmd -f .env yarn download-s3",
-    "download-s3": "node ./scripts/aws.js"
+    "download-s3": "node ./scripts/aws.js",
+    "makewebp": "node ./scripts/webp.js"
   },
   "dependencies": {
     "classnames": "^2.2.6",
