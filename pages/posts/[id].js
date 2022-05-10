@@ -41,7 +41,12 @@ export default function Post({post, posts}) {
     <Layout title={formatDate(post.id)}>
       <Masthead title={formatDate(post.id)} subtitle={subtitle} recent={post.recent} />
       <div className="fixed top-5 right-5 z-10 cursor-pointer" onClick={onClickBookmark}>
-        <img src={bookmarked ? '/svg/bookmark_saved.svg' : '/svg/bookmark.svg'} width="16" />
+        <img
+          src={bookmarked ? '/svg/bookmark_saved.svg' : '/svg/bookmark.svg'}
+          alt={bookmarked ? 'bookmark saved icon' : 'bookmark icon'}
+          width="16"
+          height="24"
+        />
       </div>
       <div className="flex justify-center pb-20 sm:pb-36">
         <Linkback />

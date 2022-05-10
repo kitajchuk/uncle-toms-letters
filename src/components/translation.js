@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import classNames from 'classnames';
 import { nanoid } from 'nanoid';
 
-import AsyncImage from './asyncimage';
+import Image from './image';
 import { withAnimate } from './animate';
 
 const ActiveLang = ({lang}) => {
@@ -14,6 +14,7 @@ const InactiveLang = ({lang, handler}) => {
 };
 
 const Translation = ({id, data}) => {
+  const prioRef = useRef(false);
   const [english, setEnglish] = useState(true);
 
   const onClickLang = () => {
@@ -28,6 +29,7 @@ const Translation = ({id, data}) => {
 
       if (texts.length === 1 && texts[0].length < 90) {
         classes['text-center'] = true;
+        prioRef.current = true;
       }
 
       if (Array.isArray(text)) {
@@ -59,15 +61,28 @@ const Translation = ({id, data}) => {
       <div>
         {renderText(english ? data.english : data.german)}
       </div>
-      {data.documents ? data.documents.map((doc) => {
+      {data.documents ? data.documents.map((doc, i) => {
         return (
           <div key={id} className="mt-10">
-            <AsyncImage src={`/assets/${id}/${doc}`} />
+            <Image
+              src={doc.src}
+              width={doc.dims.width}
+              height={doc.dims.height}
+              aspect={doc.aspect}
+              orientation={doc.orientation}
+            />
           </div>
         );
       }) : (
         <div className="mt-10">
-          <AsyncImage src={`/assets/${id}/${data.document}`} />
+          <Image
+            src={data.document.src}
+            width={data.document.dims.width}
+            height={data.document.dims.height}
+            aspect={data.document.aspect}
+            priority={prioRef.current ? 'eager' : 'lazy'}
+            orientation={data.document.orientation}
+          />
         </div>
       )}
     </section>

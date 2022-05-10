@@ -1,10 +1,27 @@
 const fs = require('fs');
 const path = require('path');
 const matter = require('gray-matter');
+const imageSize = require('image-size');
 const postsDir = path.join(process.cwd(), 'posts');
 
 function readDirectory(dir) {
   return fs.readdirSync(dir).filter((file) => !/^\./.test(file));
+}
+
+function getAssetData(id, img) {
+  const imgPath = path.join(process.cwd(), `public/assets/${id}/${img}`);
+  const imgSrc = `/assets/${id}/${img}`;
+  const imgDims = imageSize(imgPath);
+  const imgOrientation = imgDims.height > imgDims.width ? 'portrait' : 'landscape';
+
+  // { src, dims { width, height, type } }
+  return {
+    orientation: imgOrientation,
+    aspect: imgDims.height / imgDims.width * 100,
+    dims: imgDims,
+    src: imgSrc,
+    alt: img,
+  };
 }
 
 export function getAllPostIds() {
@@ -38,18 +55,36 @@ export function getPostData(id) {
   const fileContents = fs.readFileSync(fullPath, 'utf8');
   const fileData = matter(fileContents).data;
   const translations = fileData.pages.length;
-  let documents = 0;
+  const documents = fileData.pages.reduce((acc, record) => {
+    if (record.documents) return acc + record.documents.length;
+    return acc + 1;
+  }, 0) + (fileData.attachments ? fileData.attachments.length : 0);
+  const newData = {
+    ...fileData,
+  };
 
-  fileData.pages.forEach((doc) => {
-    if (doc.documents) {
-      documents += doc.documents.length;
-    } else {
-      documents += 1;
+  newData.pages = newData.pages.map((p) => {
+    const page = {
+      ...p,
+    };
+
+    if (page.documents) {
+      page.documents = page.documents.map((img) => {
+        return getAssetData(id, img);
+      });
     }
+
+    if (page.document) {
+      page.document = getAssetData(id, page.document);
+    }
+
+    return page;
   });
 
-  if (fileData.attachments) {
-    documents += fileData.attachments.length;
+  if (newData.attachments) {
+    newData.attachments = newData.attachments.map((img) => {
+      return getAssetData(id, img);
+    });
   }
 
   // Combine the data with the id
@@ -57,6 +92,6 @@ export function getPostData(id) {
     id,
     documents,
     translations,
-    ...fileData,
+    ...newData,
   };
 }

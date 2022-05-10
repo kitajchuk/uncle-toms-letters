@@ -1,6 +1,6 @@
 import { withAnimate } from './animate';
 
-import AsyncImage from './asyncimage';
+import Image from './image';
 
 const Attachments = ({post}) => {
   return (
@@ -9,7 +9,14 @@ const Attachments = ({post}) => {
       <div className="grid grid-cols-1 gap-10 justify-items-center">
         {post.attachments.map((doc) => {
           return (
-            <AsyncImage key={doc} src={`/assets/${post.id}/${doc}`} />
+            <Image
+              key={doc.src}
+              src={doc.src}
+              width={doc.dims.width}
+              height={doc.dims.height}
+              aspect={doc.aspect}
+              orientation={doc.orientation}
+            />
           );
         })}
       </div>

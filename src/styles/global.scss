@@ -8,3 +8,22 @@
     transform: translate3d(0, 0, 0);
   }
 }
+
+.image {
+  position: relative;
+  width: 100%;
+
+  &__fit {
+    position: relative;
+    width: 100%;
+  }
+
+  &__img {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}

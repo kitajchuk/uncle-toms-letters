@@ -5,7 +5,7 @@ import classNames from 'classnames';
 // Usage: export default withAnimate(SomeComponent);
 // https://reactjs.org/docs/higher-order-components.html
 export function withAnimate(WrappedComponent) {
-  return function WrapperComponent({ ...props }) {
+  return function WrapperComponent({...props}) {
     const elRef = useRef();
     const scRef = useRef();
     const [animated, setAnimated] = useState(false);
@@ -48,3 +48,7 @@ export function withAnimate(WrappedComponent) {
     );
   };
 }
+
+export const Animate = withAnimate((props) => {
+  return props.children;
+});
