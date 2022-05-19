@@ -2493,18 +2493,6 @@ prop-types@^15.7.2:
     object-assign "^4.1.1"
     react-is "^16.8.1"
 
-properjs-controller@>=0.3.0:
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/properjs-controller/-/properjs-controller-0.3.1.tgz#0f3e18c4b161b2c3030282c93e9ad91aa80baba0"
-  integrity sha512-F7EIXP1aXN79NXFsPwWUL13AHQM6fgGpeA5we6GewF0+siZ7yMLIy4zrDia5hTdhrEKabmLQkEwhEIoh28n/eQ==
-
-properjs-scrollcontroller@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/properjs-scrollcontroller/-/properjs-scrollcontroller-0.3.0.tgz#69e32d8fdec91c6fcbfbf9fda95fc9e3e22f930b"
-  integrity sha512-hYSki64fehQXR3/yNWXz5xFZfPO4qp/moUKuJUK0E7aKtkdrMdX75g7da8hSgaLm6Veg5cO/oQoDf0oNyOaMhQ==
-  dependencies:
-    properjs-controller ">=0.3.0"
-
 pump@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/pump/-/pump-3.0.0.tgz#b4a2116815bde2f4e1ea602354e8c75565107a64"
