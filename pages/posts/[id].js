@@ -69,15 +69,7 @@ export async function getStaticPaths() {
 export async function getStaticProps({params}) {
   const post = getPostData(params.id);
   let posts = getAllPosts();
-
-  // Maybe there's a better way to do this...?
-  let index = 0;
-
-  posts.forEach((json, i) => {
-    if (json.id === params.id) {
-      index = i + 1;
-    }
-  });
+  const index = posts.indexOf(posts.find(p => p.id === params.id)) + 1;
 
   posts = posts.slice(index, posts.length);
 

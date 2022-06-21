@@ -42,10 +42,14 @@ export function getAllPosts() {
   return fileNames.map((fileName) => {
     const id = fileName.replace(/\.md$/, '');
     const fileData = getPostData(id);
+    const { documents, translations } = fileData;
 
+    // Only return what is necessary to render the timeline...
     return {
       id,
-      ...fileData,
+      recent: fileData.recent || null,
+      documents,
+      translations,
     };
   });
 }
