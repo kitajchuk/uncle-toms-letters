@@ -66,6 +66,7 @@ const Translation = ({id, data}) => {
           <div key={id} className="mt-10">
             <Image
               src={doc.src}
+              alt=""
               width={doc.dims.width}
               height={doc.dims.height}
               aspect={doc.aspect}
@@ -77,6 +78,7 @@ const Translation = ({id, data}) => {
         <div className="mt-10">
           <Image
             src={data.document.src}
+            alt=""
             width={data.document.dims.width}
             height={data.document.dims.height}
             aspect={data.document.aspect}

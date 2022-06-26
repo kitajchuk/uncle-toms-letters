@@ -12,6 +12,7 @@ const Attachments = ({post}) => {
             <Image
               key={doc.src}
               src={doc.src}
+              alt=""
               width={doc.dims.width}
               height={doc.dims.height}
               aspect={doc.aspect}

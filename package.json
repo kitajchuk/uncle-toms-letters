@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "prepare": "husky install",
-    "lint": "eslint src/components src/lib pages --ext js",
+    "lint": "next lint",
     "dev": "next dev",
     "build": "next build",
     "start": "next start --port 3001",
@@ -38,13 +38,8 @@
     "babel-eslint": "^10.1.0",
     "browserslist": "^4.16.6",
     "env-cmd": "^10.1.0",
-    "eslint": "^7.27.0",
-    "eslint-config-react-app": "^6.0.0",
-    "eslint-plugin-flowtype": "^5.7.2",
-    "eslint-plugin-import": "^2.23.4",
-    "eslint-plugin-jsx-a11y": "^6.4.1",
-    "eslint-plugin-react": "^7.24.0",
-    "eslint-plugin-react-hooks": "^4.2.0",
+    "eslint": "^8.18.0",
+    "eslint-config-next": "12.1.6",
     "gray-matter": "^4.0.2",
     "image-size": "^1.0.1",
     "lint-staged": "^12.4.1",
@@ -57,56 +52,5 @@
   },
   "lint-staged": {
     "*.js": "yarn lint"
-  },
-  "eslintConfig": {
-    "settings": {
-      "react": {
-        "version": "detect"
-      }
-    },
-    "env": {
-      "browser": true,
-      "es2021": true,
-      "node": true
-    },
-    "extends": [
-      "eslint:recommended",
-      "plugin:react/recommended",
-      "react-app"
-    ],
-    "parserOptions": {
-      "ecmaFeatures": {
-        "jsx": true
-      },
-      "ecmaVersion": 12,
-      "sourceType": "module"
-    },
-    "plugins": [
-      "react"
-    ],
-    "rules": {
-      "react/prop-types": "off",
-      "react/react-in-jsx-scope": "off",
-      "jsx-a11y/anchor-is-valid": "off",
-      "jsx-a11y/alt-text": "off",
-      "indent": [
-        "error",
-        2
-      ],
-      "quotes": [
-        "error",
-        "single"
-      ],
-      "semi": [
-        "error",
-        "always"
-      ]
-    },
-    "ignorePatterns": [
-      "**/node_modules/*",
-      "**/out/*",
-      "**/.next/*",
-      "next.config.js"
-    ]
   }
 }
