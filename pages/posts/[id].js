@@ -9,6 +9,10 @@ import { formatDate } from '../../src/lib/date';
 import { getBookmarked, addBookmark, removeBookmark } from '../../src/lib/bookmarks';
 import { getAllPostIds, getAllPosts, getPostData } from '../../src/lib/posts';
 
+// Imaginary API function
+// https://imaginary.dev/docs/installing-with-next-js
+import titleForPost from "../api/titleForPost";
+
 export default function Post({post, posts}) {
   const text_d = post.documents > 1 ? 'documents' : 'document';
   const text_t = post.translations > 1 ? 'translations' : 'translation';
@@ -34,6 +38,18 @@ export default function Post({post, posts}) {
     setBookmarked(() => {
       return getBookmarked(post);
     });
+
+    const getTitleForPost = async () => {
+      const postText = post.pages.flatMap((page) => page.english.join(" ")).join(" ").replace(/\[|\]|\?|\(|\)/g, "");
+
+      console.log(postText);
+
+      const postTitles = await titleForPost(postText);
+
+      console.log(postTitles);
+    };
+
+    getTitleForPost();
 
   }, [post]);
 
