@@ -111,10 +111,9 @@ export async function getPostData(id) {
 
   // Imaginary-dev implementation
   let titles = [];
+  const postTitlesFile = path.join(postsDir, `${id}-titles.json`);
 
-  if (process.env.OPENAI_API_KEY !== undefined) {
-    const postTitlesFile = path.join(postsDir, `${id}-titles.json`);
-
+  if (process.env.IMAGINARY_DEV && process.env.OPENAI_API_KEY) {
     if (!fs.existsSync(postTitlesFile)) {
       try {
         const postText = newData.pages
@@ -127,12 +126,14 @@ export async function getPostData(id) {
       } catch (error) {
         // console.debug(error);
       }
-    } else {
-      try {
-        titles = JSON.parse(fs.readFileSync(postTitlesFile));
-      } catch (error) {
-        // console.debug(error);
-      }
+    }
+  }
+
+  if (fs.existsSync(postTitlesFile)) {
+    try {
+      titles = JSON.parse(fs.readFileSync(postTitlesFile));
+    } catch (error) {
+      // console.debug(error);
     }
   }
 
