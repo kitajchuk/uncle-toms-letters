@@ -1,11 +1,13 @@
-const fs = require('fs');
-const path = require('path');
-const dataDir = path.join(process.cwd(), 'data');
-const postsDir = path.join(process.cwd(), 'posts');
-const postsPub = path.join(process.cwd(), 'public', 'assets');
+const fs = require("fs");
+const path = require("path");
+const dataDir = path.join(process.cwd(), "data");
+const postsDir = path.join(process.cwd(), "posts");
+const postsPub = path.join(process.cwd(), "public", "assets");
 
 const makeMarkdown = (file) => {
-  fs.writeFileSync(file, `---
+  fs.writeFileSync(
+    file,
+    `---
 attachments:
   - filename
 pages:
@@ -16,7 +18,8 @@ pages:
     german:
       - paragraphs
 ---
-  `);
+  `
+  );
 };
 
 const readDirectory = (dir) => {
@@ -26,8 +29,8 @@ const readDirectory = (dir) => {
 };
 
 const moveRetouched = (postId) => {
-  const postId2 = postId.replace(/_/g, '-');
-  const dir = path.join(dataDir, postId, '_Retouched');
+  const postId2 = postId.replace(/_/g, "-");
+  const dir = path.join(dataDir, postId, "_Retouched");
   const dir2 = path.join(postsPub, postId2);
   const file = path.join(postsDir, `${postId2}.md`);
   const images = readDirectory(dir);
@@ -44,10 +47,7 @@ const moveRetouched = (postId) => {
     }
 
     images.forEach((image) => {
-      fs.copyFileSync(
-        path.join(dir, image),
-        path.join(dir2, image)
-      );
+      fs.copyFileSync(path.join(dir, image), path.join(dir2, image));
       console.log(`Copying retouched image: ${path.join(dir2, image)}`);
     });
   }

@@ -11,7 +11,7 @@ import { makeImaginaryNextFunction } from "@imaginary-dev/nextjs-util";
  */
 declare function titleForPost(postText: string): Promise<Array<string>>;
 
-export default makeImaginaryNextFunction(
-  titleForPost,
-  "/api/titleForPost"
-);
+export default makeImaginaryNextFunction(titleForPost, "/api/title-for-post");
+
+// This export can be used during next/build
+export { titleForPost };
