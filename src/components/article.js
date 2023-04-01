@@ -1,9 +1,9 @@
-import { nanoid } from 'nanoid';
+import { nanoid } from "nanoid";
 
-import Translation from './translation';
-import Attachments from './attachments';
+import Translation from "./translation";
+import Attachments from "./attachments";
 
-const Article = ({post}) => {
+const Article = ({ post }) => {
   return (
     <article className="font-sans leading-loose px-5">
       <main className="container mx-auto max-w-screen-md">
@@ -11,9 +11,7 @@ const Article = ({post}) => {
           return <Translation key={nanoid()} id={post.id} data={translation} />;
         })}
       </main>
-      {post.attachments ? (
-        <Attachments post={post} />
-      ) : null}
+      {post.attachments ? <Attachments post={post} /> : null}
     </article>
   );
 };

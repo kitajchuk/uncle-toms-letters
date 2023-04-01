@@ -1,9 +1,8 @@
-import Star from './star';
-import { withAnimate } from './animate';
+import Star from "./star";
 
-const Masthead = ({title, subtitle, recent = false}) => {
+const Masthead = ({ title, subtitle, recent = false }) => {
   return (
-    <header className="text-center font-sans py-20 sm:py-36 px-5 leading-loose">
+    <header className="anim text-center font-sans py-20 sm:py-36 px-5 leading-loose">
       {recent ? (
         <div className="mb-5">
           <Star />
@@ -15,4 +14,4 @@ const Masthead = ({title, subtitle, recent = false}) => {
   );
 };
 
-export default withAnimate(Masthead);
+export default Masthead;

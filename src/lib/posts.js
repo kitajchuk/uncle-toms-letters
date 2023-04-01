@@ -1,23 +1,34 @@
-const fs = require('fs');
-const path = require('path');
-const matter = require('gray-matter');
-const imageSize = require('image-size');
-const postsDir = path.join(process.cwd(), 'posts');
+const fs = require("fs");
+const path = require("path");
+const matter = require("gray-matter");
+const imageSize = require("image-size");
+
+// Imaginary API function
+// https://imaginary.dev/docs/installing-with-next-js
+const { titleForPost } = require("../../pages/api/title-for-post");
+
+const postsDir = path.join(process.cwd(), "posts");
 
 function readDirectory(dir) {
   return fs.readdirSync(dir).filter((file) => !/^\./.test(file));
+}
+
+function getPostFiles() {
+  const fileNames = readDirectory(postsDir);
+  return fileNames.filter((file) => /\.md$/.test(file));
 }
 
 function getAssetData(id, img) {
   const imgPath = path.join(process.cwd(), `public/assets/${id}/${img}`);
   const imgSrc = `/assets/${id}/${img}`;
   const imgDims = imageSize(imgPath);
-  const imgOrientation = imgDims.height > imgDims.width ? 'portrait' : 'landscape';
+  const imgOrientation =
+    imgDims.height > imgDims.width ? "portrait" : "landscape";
 
   // { src, dims { width, height, type } }
   return {
     orientation: imgOrientation,
-    aspect: imgDims.height / imgDims.width * 100,
+    aspect: (imgDims.height / imgDims.width) * 100,
     dims: imgDims,
     src: imgSrc,
     alt: img,
@@ -25,44 +36,51 @@ function getAssetData(id, img) {
 }
 
 export function getAllPostIds() {
-  const fileNames = readDirectory(postsDir);
+  const fileNames = getPostFiles();
 
   return fileNames.map((fileName) => {
     return {
       params: {
-        id: fileName.replace(/\.md$/, ''),
+        id: fileName.replace(/\.md$/, ""),
       },
     };
   });
 }
 
-export function getAllPosts() {
-  const fileNames = readDirectory(postsDir);
+export async function getAllPosts() {
+  const fileNames = getPostFiles();
 
-  return fileNames.map((fileName) => {
-    const id = fileName.replace(/\.md$/, '');
-    const fileData = getPostData(id);
-    const { documents, translations } = fileData;
+  return await Promise.all(
+    fileNames.map(async (fileName) => {
+      const id = fileName.replace(/\.md$/, "");
+      const fileData = await getPostData(id);
+      const { documents, translations } = fileData;
 
-    // Only return what is necessary to render the timeline...
-    return {
-      id,
-      recent: fileData.recent || null,
-      documents,
-      translations,
-    };
-  });
+      // Only return what is necessary to render the timeline...
+      return {
+        id,
+        recent: fileData.recent || null,
+        documents,
+        translations,
+      };
+    })
+  );
 }
 
-export function getPostData(id) {
+export async function getPostData(id) {
   const fullPath = path.join(postsDir, `${id}.md`);
-  const fileContents = fs.readFileSync(fullPath, 'utf8');
+  const fileContents = fs.readFileSync(fullPath, "utf8");
   const fileData = matter(fileContents).data;
   const translations = fileData.pages.length;
-  const documents = fileData.pages.reduce((acc, record) => {
-    if (record.documents) return acc + record.documents.length;
-    return acc + 1;
-  }, 0) + (fileData.attachments ? fileData.attachments.length : 0);
+
+  // Generate documents aggregate count
+  const documents =
+    fileData.pages.reduce((acc, record) => {
+      if (record.documents) return acc + record.documents.length;
+      return acc + 1;
+    }, 0) + (fileData.attachments ? fileData.attachments.length : 0);
+
+  // New data to map asset data onto
   const newData = {
     ...fileData,
   };
@@ -91,9 +109,38 @@ export function getPostData(id) {
     });
   }
 
+  // Imaginary-dev implementation
+  let titles = [];
+  const postTitlesFile = path.join(postsDir, `${id}-titles.json`);
+
+  if (process.env.IMAGINARY_DEV && process.env.OPENAI_API_KEY) {
+    if (!fs.existsSync(postTitlesFile)) {
+      try {
+        const postText = newData.pages
+          .flatMap((page) => page.english.join(" "))
+          .join(" ");
+        const postTitles = await titleForPost(postText);
+
+        fs.writeFileSync(postTitlesFile, JSON.stringify(postTitles, null, 2));
+        console.log(`Created file: ${postTitlesFile}`);
+      } catch (error) {
+        // console.debug(error);
+      }
+    }
+  }
+
+  if (fs.existsSync(postTitlesFile)) {
+    try {
+      titles = JSON.parse(fs.readFileSync(postTitlesFile));
+    } catch (error) {
+      // console.debug(error);
+    }
+  }
+
   // Combine the data with the id
   return {
     id,
+    titles,
     documents,
     translations,
     ...newData,

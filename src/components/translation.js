@@ -1,19 +1,29 @@
-import { useState, useRef } from 'react';
-import classNames from 'classnames';
-import { nanoid } from 'nanoid';
+import { useState, useRef } from "react";
+import classNames from "classnames";
+import { nanoid } from "nanoid";
 
-import Image from './image';
-import { withAnimate } from './animate';
+import Image from "./image";
 
-const ActiveLang = ({lang}) => {
-  return <div className="text-sm font-normal leading-normal mx-1 border border-black px-2.5 py-0 rounded">{lang}</div>;
+const ActiveLang = ({ lang }) => {
+  return (
+    <div className="text-sm font-normal leading-normal mx-1 border border-black px-2.5 py-0 rounded bg-black text-white">
+      {lang}
+    </div>
+  );
 };
 
-const InactiveLang = ({lang, handler}) => {
-  return <div className="text-sm font-normal leading-normal mx-1 border border-white px-2.5 py-0 rounded cursor-pointer" onClick={handler}>{lang}</div>;
+const InactiveLang = ({ lang, handler }) => {
+  return (
+    <div
+      className="text-sm font-normal leading-normal mx-1 border border-black px-2.5 py-0 rounded cursor-pointer"
+      onClick={handler}
+    >
+      {lang}
+    </div>
+  );
 };
 
-const Translation = ({id, data}) => {
+const Translation = ({ id, data }) => {
   const prioRef = useRef(false);
   const [english, setEnglish] = useState(true);
 
@@ -24,26 +34,30 @@ const Translation = ({id, data}) => {
   const renderText = (texts) => {
     return texts.map((text) => {
       const classes = {
-        'my-4': true,
+        "my-4": true,
       };
 
       if (texts.length === 1 && texts[0].length < 90) {
-        classes['text-center'] = true;
+        classes["text-center"] = true;
         prioRef.current = true;
       }
 
       if (Array.isArray(text)) {
-        text = text.join('\n');
-        classes['whitespace-pre-line'] = true;
-        classes['leading-normal'] = true;
+        text = text.join("\n");
+        classes["whitespace-pre-line"] = true;
+        classes["leading-normal"] = true;
       }
 
-      return <p key={nanoid()} className={classNames(classes)}>{text}</p>;
+      return (
+        <p key={nanoid()} className={classNames(classes)}>
+          {text}
+        </p>
+      );
     });
   };
 
   return (
-    <section className="leading-loose pb-20 sm:pb-36">
+    <section className="anim leading-loose pb-20 sm:pb-36">
       <div className="text-center text-xl sm:text-2xl">{data.title}</div>
       <div className="mt-3 mb-5 -mx-1 flex items-center justify-center">
         {english ? (
@@ -58,23 +72,23 @@ const Translation = ({id, data}) => {
           </>
         )}
       </div>
-      <div>
-        {renderText(english ? data.english : data.german)}
-      </div>
-      {data.documents ? data.documents.map((doc, i) => {
-        return (
-          <div key={id} className="mt-10">
-            <Image
-              src={doc.src}
-              alt=""
-              width={doc.dims.width}
-              height={doc.dims.height}
-              aspect={doc.aspect}
-              orientation={doc.orientation}
-            />
-          </div>
-        );
-      }) : (
+      <div>{renderText(english ? data.english : data.german)}</div>
+      {data.documents ? (
+        data.documents.map((doc, i) => {
+          return (
+            <div key={id} className="mt-10">
+              <Image
+                src={doc.src}
+                alt=""
+                width={doc.dims.width}
+                height={doc.dims.height}
+                aspect={doc.aspect}
+                orientation={doc.orientation}
+              />
+            </div>
+          );
+        })
+      ) : (
         <div className="mt-10">
           <Image
             src={data.document.src}
@@ -82,7 +96,7 @@ const Translation = ({id, data}) => {
             width={data.document.dims.width}
             height={data.document.dims.height}
             aspect={data.document.aspect}
-            priority={prioRef.current ? 'eager' : 'lazy'}
+            priority={prioRef.current ? "eager" : "lazy"}
             orientation={data.document.orientation}
           />
         </div>
@@ -91,4 +105,4 @@ const Translation = ({id, data}) => {
   );
 };
 
-export default withAnimate(Translation);
+export default Translation;

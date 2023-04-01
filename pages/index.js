@@ -1,19 +1,22 @@
-import Layout from '../src/components/layout';
-import Masthead from '../src/components/masthead';
-import Timeline from '../src/components/timeline';
-import { getAllPosts } from '../src/lib/posts';
+import Layout from "../src/components/layout";
+import Masthead from "../src/components/masthead";
+import Timeline from "../src/components/timeline";
+import { getAllPosts } from "../src/lib/posts";
 
-const Home = ({posts}) => {
+const Home = ({ posts }) => {
   return (
     <Layout>
-      <Masthead title="Uncle Tom's Letters" subtitle="The Story of Eva and Fritz" />
+      <Masthead
+        title="Uncle Tom's Letters"
+        subtitle="The Story of Eva and Fritz"
+      />
       <Timeline posts={posts} open={false} />
     </Layout>
   );
 };
 
 export async function getStaticProps() {
-  const posts = getAllPosts();
+  const posts = await getAllPosts();
 
   return {
     props: {

@@ -1,11 +1,11 @@
-const fs = require('fs');
-const path = require('path');
-const mkdirp = require('mkdirp');
-const sharp = require('sharp');
-const shell = require('shelljs');
+const fs = require("fs");
+const path = require("path");
+const mkdirp = require("mkdirp");
+const sharp = require("sharp");
+const shell = require("shelljs");
 
 // Source images in local `data` directory -- ignored
-const shellCmd = 'find ./data -type f';
+const shellCmd = "find ./data -type f";
 const shellOpts = { silent: true };
 
 // The width for the `webp` versions
@@ -17,17 +17,19 @@ const rRetouched = /_Retouched\/(.*?)\.(png|jpg|jpeg)$/;
 
 // Shell out to `find` for quick recurse
 const files = shell
-  .exec(shellCmd, shellOpts).stdout
-  .split('\n')
-  .filter(f => rRetouched.test(f));
+  .exec(shellCmd, shellOpts)
+  .stdout.split("\n")
+  .filter((f) => rRetouched.test(f));
 
 // Process each file for Next's public directory
 files.forEach(async (file) => {
   // Get post ID to build directories
-  const postID = file.replace(/\.\/data\/(.*?)\/.*?$/, (m, p1) => p1.replace(/_/g, '-'));
-  const assetDir = path.join(process.cwd(), 'public', 'assets', postID);
-  const fileName = file.split('/').pop();
-  const fileWebp = fileName.replace(rImage, '.webp');
+  const postID = file.replace(/\.\/data\/(.*?)\/.*?$/, (m, p1) =>
+    p1.replace(/_/g, "-")
+  );
+  const assetDir = path.join(process.cwd(), "public", "assets", postID);
+  const fileName = file.split("/").pop();
+  const fileWebp = fileName.replace(rImage, ".webp");
   const outFile = path.join(assetDir, fileWebp);
 
   if (!fs.existsSync(assetDir)) {
@@ -36,9 +38,7 @@ files.forEach(async (file) => {
   }
 
   if (!fs.existsSync(outFile)) {
-    await sharp(file)
-      .resize(imgSize)
-      .toFile(outFile);
+    await sharp(file).resize(imgSize).toFile(outFile);
     console.log(`Making asset file: ${outFile}`);
   }
 });

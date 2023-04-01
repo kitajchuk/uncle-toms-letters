@@ -1,5 +1,5 @@
 // LocalStorage access key...
-const store = 'utl-bookmarks';
+const store = "utl-bookmarks";
 
 export function setBookmarks(data) {
   return window.localStorage.setItem(store, JSON.stringify(data));
@@ -13,8 +13,10 @@ export function getBookmarks() {
 export function getBookmarked(post) {
   const data = getBookmarks();
   return data.find((bm) => {
-    return (bm.id === post.id);
-  }) ? true : false;
+    return bm.id === post.id;
+  })
+    ? true
+    : false;
 }
 
 export function addBookmark(post) {
@@ -37,7 +39,7 @@ export function addBookmark(post) {
 export function removeBookmark(post) {
   const data = getBookmarks();
   const found = data.find((bm) => {
-    return (bm.id === post.id);
+    return bm.id === post.id;
   });
 
   if (found) {

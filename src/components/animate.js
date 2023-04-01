@@ -1,43 +1,38 @@
-import { useEffect, useRef, useState } from 'react';
-import classNames from 'classnames';
+import { useEffect, useRef } from "react";
 
-export function withAnimate(WrappedComponent) {
-  return function WrapperComponent({...props}) {
-    const elRef = useRef();
-    const obRef = useRef();
-    const [animated, setAnimated] = useState(false);
-    const classes = {
-      'anim': true,
-      'is-animated': animated,
-    };
+export function Animate({ children }) {
+  const obRef = useRef();
 
-    useEffect(() => {
-      if (elRef.current) {
-        obRef.current = new IntersectionObserver((entries) => {
-          if (entries[ 0 ].isIntersecting) {
-            obRef.current.disconnect();
-            setAnimated(true);
+  useEffect(() => {
+    let animated = 0;
+    const elements = document.querySelectorAll(".anim");
+
+    if (elements) {
+      obRef.current = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            obRef.current.unobserve(entry.target);
+            entry.target.classList.add("is-animated");
+            animated++;
+
+            if (animated === elements.length) {
+              obRef.current.disconnect();
+            }
           }
         });
+      });
 
-        obRef.current.observe(elRef.current);
-      }
+      elements.forEach((element) => {
+        obRef.current.observe(element);
+      });
 
       return function cleanup() {
         if (obRef.current) {
           obRef.current.disconnect();
         }
       };
-    }, []);
+    }
+  }, [children]);
 
-    return (
-      <div ref={elRef} className={classNames(classes)}>
-        <WrappedComponent {...props} />
-      </div>
-    );
-  };
+  return children;
 }
-
-export const Animate = withAnimate((props) => {
-  return props.children;
-});
