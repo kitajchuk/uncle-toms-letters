@@ -111,25 +111,28 @@ export async function getPostData(id) {
 
   // Imaginary-dev implementation
   let titles = [];
-  const postTitlesFile = path.join(postsDir, `${id}-titles.json`);
 
-  if (!fs.existsSync(postTitlesFile)) {
-    try {
-      const postText = newData.pages
-        .flatMap((page) => page.english.join(" "))
-        .join(" ");
-      const postTitles = await titleForPost(postText);
+  if (process.env.OPENAI_API_KEY !== undefined) {
+    const postTitlesFile = path.join(postsDir, `${id}-titles.json`);
 
-      fs.writeFileSync(postTitlesFile, JSON.stringify(postTitles, null, 2));
-      console.log(`Created file: ${postTitlesFile}`);
-    } catch (error) {
-      // console.debug(error);
-    }
-  } else {
-    try {
-      titles = JSON.parse(fs.readFileSync(postTitlesFile));
-    } catch (error) {
-      // console.debug(error);
+    if (!fs.existsSync(postTitlesFile)) {
+      try {
+        const postText = newData.pages
+          .flatMap((page) => page.english.join(" "))
+          .join(" ");
+        const postTitles = await titleForPost(postText);
+
+        fs.writeFileSync(postTitlesFile, JSON.stringify(postTitles, null, 2));
+        console.log(`Created file: ${postTitlesFile}`);
+      } catch (error) {
+        // console.debug(error);
+      }
+    } else {
+      try {
+        titles = JSON.parse(fs.readFileSync(postTitlesFile));
+      } catch (error) {
+        // console.debug(error);
+      }
     }
   }
 
