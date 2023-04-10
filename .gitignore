@@ -11,6 +11,7 @@
 # next.js
 /.next/
 /out/
+next-env.d.ts
 
 # production
 /build
@@ -27,7 +28,6 @@ yarn-error.log*
 .env*
 
 # kitajchuk
-/.idea/
 /data/
 /posts/
 /public/assets/
