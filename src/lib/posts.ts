@@ -10,7 +10,7 @@ import type {
 
 import fs from "fs";
 import path from "path";
-import matter from "gray-matter";
+import YAML from "yamljs";
 import imageSize from "image-size";
 
 const postsDir = path.join(process.cwd(), "posts");
@@ -21,7 +21,7 @@ function readDirectory(dir: string) {
 
 function getPostFiles() {
   const fileNames = readDirectory(postsDir);
-  return fileNames.filter((file) => /\.md$/.test(file));
+  return fileNames.filter((file) => /\.yml$/.test(file));
 }
 
 function getAssetData(id: string, img: string): Asset {
@@ -46,7 +46,7 @@ export function getAllPostIds(): StaticPath[] {
   return fileNames.map((fileName) => {
     return {
       params: {
-        id: fileName.replace(/\.md$/, ""),
+        id: fileName.replace(/\.yml$/, ""),
       },
     };
   });
@@ -57,7 +57,7 @@ export async function getAllPosts(): Promise<BasePost[]> {
 
   return await Promise.all(
     fileNames.map(async (fileName) => {
-      const id = fileName.replace(/\.md$/, "");
+      const id = fileName.replace(/\.yml$/, "");
       const fileData = await getPostData(id);
       const { recent, documents, translations } = fileData;
 
@@ -73,9 +73,9 @@ export async function getAllPosts(): Promise<BasePost[]> {
 }
 
 export async function getPostData(id: string): Promise<Post> {
-  const fullPath = path.join(postsDir, `${id}.md`);
+  const fullPath = path.join(postsDir, `${id}.yml`);
   const fileContents = fs.readFileSync(fullPath, "utf8");
-  const fileData = matter(fileContents).data as RawPost;
+  const fileData = YAML.parse(fileContents) as RawPost;
 
   // Generate translations aggregate count
   const translations = fileData.pages.length;

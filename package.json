@@ -16,8 +16,8 @@
     "upload-s3": "aws s3 sync ./posts s3://${UTL_S3_REPOSITORY}/posts --exclude '*.DS_Store' --delete",
     "postupload-s3": "aws s3 sync ./public/assets s3://${UTL_S3_REPOSITORY}/public/assets --exclude '*.DS_Store' --delete",
     "download": "env-cmd -f .env yarn download-s3",
-    "download-s3": "node ./scripts/aws.js",
-    "makewebp": "node ./scripts/webp.js"
+    "download-s3": "ts-node --esm ./scripts/aws.ts",
+    "makewebp": "ts-node --esm ./scripts/webp.ts"
   },
   "dependencies": {
     "classnames": "^2.2.6",
@@ -33,8 +33,12 @@
     "react-ssr-prepass": "npm:preact-ssr-prepass"
   },
   "devDependencies": {
+    "@nosferatu500/textract": "^3.1.3",
     "@types/node": "^18.15.11",
     "@types/react": "^18.0.31",
+    "@types/sharp": "^0.31.1",
+    "@types/shelljs": "^0.8.11",
+    "@types/yamljs": "^0.2.31",
     "autoprefixer": "^10.2.6",
     "aws-sdk": "^2.882.0",
     "babel-eslint": "^10.1.0",
@@ -42,7 +46,6 @@
     "env-cmd": "^10.1.0",
     "eslint": "^8.18.0",
     "eslint-config-next": "12.1.6",
-    "gray-matter": "^4.0.2",
     "image-size": "^1.0.1",
     "lint-staged": "^12.4.1",
     "mkdirp": "^1.0.4",
@@ -52,7 +55,9 @@
     "sharp": "^0.30.4",
     "shelljs": "^0.8.5",
     "tailwindcss": "^2.1.2",
-    "typescript": "^5.0.3"
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.3",
+    "yamljs": "^0.3.0"
   },
   "lint-staged": {
     "*.{ts,tsx,js,jsx}": "yarn lint",
