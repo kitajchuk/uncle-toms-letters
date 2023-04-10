@@ -1,6 +1,12 @@
 import Star from "./star";
 
-const Masthead = ({ title, subtitle, recent = false }) => {
+type MastheadProps = {
+  title: string;
+  subtitle: string;
+  recent?: boolean;
+};
+
+const Masthead = ({ title, subtitle, recent = false }: MastheadProps) => {
   return (
     <header className="anim text-center font-sans py-20 sm:py-36 px-5 leading-loose">
       {recent ? (

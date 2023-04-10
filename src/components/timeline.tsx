@@ -1,3 +1,5 @@
+import type { BasePost } from "../types";
+
 import Link from "next/link";
 
 import { nanoid } from "nanoid";
@@ -6,7 +8,11 @@ import Star from "./star";
 import Linkback from "./linkback";
 import { formatDate } from "../lib/date";
 
-const Timelink = ({ post }) => {
+type TimelinkProps = {
+  post: BasePost;
+};
+
+const Timelink = ({ post }: TimelinkProps) => {
   const text_d = post.documents > 1 ? "documents" : "document";
   const text_t = post.translations > 1 ? "translations" : "translation";
 
@@ -72,7 +78,17 @@ const Envelope = () => {
   );
 };
 
-const Timeline = ({ posts, open = false, bookmarks = false }) => {
+type TimelineProps = {
+  open?: boolean;
+  posts: BasePost[];
+  bookmarks?: boolean;
+};
+
+const Timeline = ({
+  posts,
+  open = false,
+  bookmarks = false,
+}: TimelineProps) => {
   return (
     <nav className="text-center font-sans leading-loose px-5">
       <div className="flex justify-center pb-20 sm:pb-36">

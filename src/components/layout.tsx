@@ -1,10 +1,14 @@
 import Head from "next/head";
 import Navi from "./navi";
 
-import { withBookmarks } from "./bookmarks";
 import { Animate } from "./animate";
 
-const Layout = ({ children, title = "Uncle Tom's Letters" }) => {
+type LayoutProps = {
+  title?: string;
+  children: React.ReactNode;
+};
+
+const Layout = ({ children, title = "Uncle Tom's Letters" }: LayoutProps) => {
   return (
     <>
       <Head>
@@ -28,4 +32,4 @@ const Layout = ({ children, title = "Uncle Tom's Letters" }) => {
   );
 };
 
-export default withBookmarks(Layout);
+export default Layout;

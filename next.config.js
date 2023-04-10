@@ -1,9 +1,13 @@
+// @ts-check
+
 const withPreact = require("next-plugin-preact");
 
-module.exports = withPreact({
+/**
+ * @type {import('next').NextConfig}
+ **/
+const nextConfig = withPreact({
   trailingSlash: true,
-  typescript: {
-    // This is okay for now while we test imaginary-dev...
-    ignoreBuildErrors: true,
-  },
+  typescript: {},
 });
+
+module.exports = nextConfig;

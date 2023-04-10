@@ -1,10 +1,17 @@
+import type { Page } from "../types";
+
 import { useState, useRef } from "react";
 import classNames from "classnames";
 import { nanoid } from "nanoid";
 
 import Image from "./image";
 
-const ActiveLang = ({ lang }) => {
+type LanguageProps = {
+  lang: string;
+  handler?: () => void;
+};
+
+const ActiveLang = ({ lang }: LanguageProps) => {
   return (
     <div className="text-sm font-normal leading-normal mx-1 border border-black px-2.5 py-0 rounded bg-black text-white">
       {lang}
@@ -12,7 +19,7 @@ const ActiveLang = ({ lang }) => {
   );
 };
 
-const InactiveLang = ({ lang, handler }) => {
+const InactiveLang = ({ lang, handler }: LanguageProps) => {
   return (
     <div
       className="text-sm font-normal leading-normal mx-1 border border-black px-2.5 py-0 rounded cursor-pointer"
@@ -23,7 +30,12 @@ const InactiveLang = ({ lang, handler }) => {
   );
 };
 
-const Translation = ({ id, data }) => {
+type TranslationProps = {
+  id: string;
+  page: Page;
+};
+
+const Translation = ({ id, page }: TranslationProps) => {
   const prioRef = useRef(false);
   const [english, setEnglish] = useState(true);
 
@@ -31,7 +43,7 @@ const Translation = ({ id, data }) => {
     setEnglish(!english);
   };
 
-  const renderText = (texts) => {
+  const renderText = (texts: string[]) => {
     return texts.map((text) => {
       const classes = {
         "my-4": true,
@@ -58,7 +70,7 @@ const Translation = ({ id, data }) => {
 
   return (
     <section className="anim leading-loose pb-20 sm:pb-36">
-      <div className="text-center text-xl sm:text-2xl">{data.title}</div>
+      <div className="text-center text-xl sm:text-2xl">{page.title}</div>
       <div className="mt-3 mb-5 -mx-1 flex items-center justify-center">
         {english ? (
           <>
@@ -72,9 +84,9 @@ const Translation = ({ id, data }) => {
           </>
         )}
       </div>
-      <div>{renderText(english ? data.english : data.german)}</div>
-      {data.documents ? (
-        data.documents.map((doc, i) => {
+      <div>{renderText(english ? page.english : page.german)}</div>
+      {page.documents ? (
+        page.documents.map((doc, i) => {
           return (
             <div key={id} className="mt-10">
               <Image
@@ -91,13 +103,13 @@ const Translation = ({ id, data }) => {
       ) : (
         <div className="mt-10">
           <Image
-            src={data.document.src}
+            src={page.document.src}
             alt=""
-            width={data.document.dims.width}
-            height={data.document.dims.height}
-            aspect={data.document.aspect}
-            priority={prioRef.current ? "eager" : "lazy"}
-            orientation={data.document.orientation}
+            width={page.document.dims.width}
+            height={page.document.dims.height}
+            aspect={page.document.aspect}
+            priority={prioRef.current}
+            orientation={page.document.orientation}
           />
         </div>
       )}

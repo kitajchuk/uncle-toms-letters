@@ -1,9 +1,12 @@
+import type { NextPage } from "next";
+import type { TimelineProps, StaticProps } from "../src/types";
+
 import Layout from "../src/components/layout";
 import Masthead from "../src/components/masthead";
 import Timeline from "../src/components/timeline";
 import { getAllPosts } from "../src/lib/posts";
 
-const Home = ({ posts }) => {
+const Home: NextPage = ({ posts }: TimelineProps) => {
   return (
     <Layout>
       <Masthead
@@ -15,7 +18,7 @@ const Home = ({ posts }) => {
   );
 };
 
-export async function getStaticProps() {
+export async function getStaticProps(): Promise<StaticProps> {
   const posts = await getAllPosts();
 
   return {
