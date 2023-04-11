@@ -1,3 +1,5 @@
+// Automate the post process...
+
 import type { RawData } from "../src/types";
 
 import fs from "fs";
@@ -86,27 +88,32 @@ const diffPosts = sourcePosts.filter(
       if (dataMapper.letters.length) {
         await Promise.all(
           dataMapper.letters.map(async (file: string) => {
-            const text = await textExtraction(id, file);
-            const titles = text.match(/Letter\s\d{0,3}/g);
+            // Text extraction could result in error...
+            try {
+              const text = await textExtraction(id, file);
+              const titles = text.match(/Letter\s\d{0,3}/g);
 
-            titles.forEach((title) => {
-              dataMapper.pages.push({
-                title,
-                // TODO: parse the translations from text content
-                //       which will require using match indexes and
-                //       length of text content until next match etc...
-                german: [],
-                english: [],
-                // Matches the page text to it's corresponding scanned
-                // document via file naming convention. This produces
-                // something like the following:
-                // Given "Letter 142" as the title we can match it to
-                // the image with fileName "Letter_142_19381012_L_P5.jpeg"
-                document: dataMapper.documents.find((doc) =>
-                  doc.startsWith(title.replace(/\s/, "_"))
-                ),
+              titles.forEach((title) => {
+                dataMapper.pages.push({
+                  title,
+                  // TODO: parse the translations from text content
+                  //       which will require using match indexes and
+                  //       length of text content until next match etc...
+                  german: [],
+                  english: [],
+                  // Matches the page text to it's corresponding scanned
+                  // document via file naming convention. This produces
+                  // something like the following:
+                  // Given "Letter 142" as the title we can match it to
+                  // the image with fileName "Letter_142_19381012_L_P5.jpeg"
+                  document: dataMapper.documents.find((doc) =>
+                    doc.startsWith(title.replace(/\s/, "_"))
+                  ),
+                });
               });
-            });
+            } catch (error) {
+              console.error(error);
+            }
           })
         );
       }

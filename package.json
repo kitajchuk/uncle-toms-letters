@@ -18,7 +18,7 @@
     "download": "env-cmd -f .env yarn download-s3",
     "download-s3": "ts-node --esm ./scripts/aws.ts",
     "makewebp": "ts-node --esm ./scripts/webp.ts",
-    "test": "ts-node --esm ./scripts/test.ts"
+    "automate": "ts-node --esm ./scripts/auto.ts"
   },
   "dependencies": {
     "classnames": "^2.2.6",

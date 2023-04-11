@@ -6,7 +6,7 @@ export interface RawPage {
   german: string[];
   english: string[];
   document?: string;
-  documents?: string[];
+  documents?: string[]; // Legacy...
 }
 
 export interface RawPost {
@@ -41,10 +41,7 @@ export interface Page {
   german: string[];
   english: string[];
   document?: Asset;
-  // Presumably this is a legacy property and
-  // won't be used anymore moving forward with
-  // new translations...
-  documents?: Asset[];
+  documents?: Asset[]; // Legacy...
 }
 
 export interface BasePost {
