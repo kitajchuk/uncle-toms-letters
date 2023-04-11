@@ -1,9 +1,9 @@
-const fs = require("fs");
-const path = require("path");
+import fs from "fs";
+import path from "path";
 
-const sharp = require("sharp");
-const shell = require("shelljs");
-const mkdirp = require("mkdirp");
+import sharp from "sharp";
+import shell from "shelljs";
+import mkdirp from "mkdirp";
 
 // Source images in local `data` directory -- ignored
 const shellCmd = "find ./data -type f";

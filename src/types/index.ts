@@ -15,6 +15,15 @@ export interface RawPost {
   attachments: string[];
 }
 
+export interface RawData {
+  id: string;
+  id_: string;
+  pages: RawPage[];
+  letters: string[];
+  documents: string[];
+  attachments: string[];
+}
+
 // Data types from post SSG scripts
 // These are for the client-side application
 export type Orientation = "landscape" | "portrait";
@@ -32,6 +41,9 @@ export interface Page {
   german: string[];
   english: string[];
   document?: Asset;
+  // Presumably this is a legacy property and
+  // won't be used anymore moving forward with
+  // new translations...
   documents?: Asset[];
 }
 

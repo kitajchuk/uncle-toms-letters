@@ -17,7 +17,8 @@
     "postupload-s3": "aws s3 sync ./public/assets s3://${UTL_S3_REPOSITORY}/public/assets --exclude '*.DS_Store' --delete",
     "download": "env-cmd -f .env yarn download-s3",
     "download-s3": "ts-node --esm ./scripts/aws.ts",
-    "makewebp": "ts-node --esm ./scripts/webp.ts"
+    "makewebp": "ts-node --esm ./scripts/webp.ts",
+    "test": "ts-node --esm ./scripts/test.ts"
   },
   "dependencies": {
     "classnames": "^2.2.6",

@@ -1,8 +1,8 @@
-const fs = require("fs");
-const path = require("path");
+import fs from "fs";
+import path from "path";
 
-const AWS = require("aws-sdk");
-const mkdirp = require("mkdirp");
+import AWS from "aws-sdk";
+import mkdirp from "mkdirp";
 
 const s3 = new AWS.S3({
   region: process.env.UTL_AWS_REGION,
