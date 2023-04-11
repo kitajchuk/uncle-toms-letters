@@ -37,7 +37,6 @@ const textExtraction = async (
       },
       (error: Error, text: string) => {
         if (error) {
-          console.error(error);
           reject(error);
         } else {
           resolve(text);
@@ -93,12 +92,25 @@ const diffPosts = sourcePosts.filter(
               const text = await textExtraction(id, file);
               const titles = text.match(/Letter\s\d{0,3}/g);
 
-              titles.forEach((title) => {
+              let index: number;
+
+              titles.forEach((title, i) => {
+                // TODO: parse the translations from text content
+                //       which will require using match indexes and
+                //       length of text content until next match etc...
+                index = text.indexOf(title);
+
+                const nextTitle = titles[i + 1];
+                const nextIndex =
+                  nextTitle !== undefined
+                    ? text.indexOf(nextTitle)
+                    : text.length;
+
+                // TODO: separate german from english text blocks...
+                console.log(text.substring(index, nextIndex));
+
                 dataMapper.pages.push({
                   title,
-                  // TODO: parse the translations from text content
-                  //       which will require using match indexes and
-                  //       length of text content until next match etc...
                   german: [],
                   english: [],
                   // Matches the page text to it's corresponding scanned
