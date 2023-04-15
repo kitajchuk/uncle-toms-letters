@@ -20,11 +20,12 @@ export function isBookmarked(post: Post) {
 export function addBookmark(post: Post) {
   if (!isBookmarked(post)) {
     const posts = getBookmarks();
-    const { id, recent, documents, translations } = post;
+    const { id, date, recent, documents, translations } = post;
 
     // Only what we need for render in LocalStorage...
     posts.push({
       id,
+      date,
       recent,
       documents,
       translations,

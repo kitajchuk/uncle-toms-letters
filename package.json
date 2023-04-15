@@ -16,9 +16,9 @@
     "upload-s3": "aws s3 sync ./posts s3://${UTL_S3_REPOSITORY}/posts --exclude '*.DS_Store' --delete",
     "postupload-s3": "aws s3 sync ./public/assets s3://${UTL_S3_REPOSITORY}/public/assets --exclude '*.DS_Store' --delete",
     "download": "env-cmd -f .env yarn download-s3",
-    "download-s3": "ts-node --esm ./scripts/aws.ts",
-    "makewebp": "ts-node --esm ./scripts/webp.ts",
-    "automate": "ts-node --esm ./scripts/auto.ts"
+    "download-s3": "tsx ./scripts/aws.ts",
+    "makewebp": "tsx ./scripts/webp.ts",
+    "automate": "tsx ./scripts/auto.ts"
   },
   "dependencies": {
     "classnames": "^2.2.6",
@@ -53,11 +53,11 @@
     "mkdirp": "^1.0.4",
     "postcss": "^8.3.0",
     "prettier": "^2.8.7",
-    "sass": "^1.34.0",
     "sharp": "^0.30.4",
     "shelljs": "^0.8.5",
     "tailwindcss": "^2.1.2",
     "ts-node": "^10.9.1",
+    "tsx": "^3.12.6",
     "typescript": "^5.0.3",
     "yamljs": "^0.3.0"
   },

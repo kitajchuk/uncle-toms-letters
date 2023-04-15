@@ -1,31 +1,17 @@
-// Automate the post process...
-
 import type { RawData, RawEntity } from "../src/types";
 import type { DetectLanguage } from "cld";
 
-import fs from "fs";
 import path from "path";
-
 import cld from "cld";
 import textract from "@nosferatu500/textract";
-
-const dataDir = path.join(process.cwd(), "data");
-const postsDir = path.join(process.cwd(), "posts");
-
-const dotFormat = /^\./;
-const postFormat = /^\d\d\d\d(-|_)\d\d(-|_)\d\d$/;
-
-const slug = (file: string) => file.replace(/_/g, "-");
-
-const unslug = (file: string) => file.replace(/-/g, "_");
-
-const readFolder = (dir: string) =>
-  fs.readdirSync(dir).filter((file: string) => !dotFormat.test(file));
-
-const readDirectory = (dir: string) =>
-  readFolder(dir)
-    .map((file: string) => file.replace(/\.yml$/, ""))
-    .filter((file: string) => postFormat.test(file));
+import {
+  slug,
+  unslug,
+  dataDir,
+  postsDir,
+  readFolder,
+  readDirectory,
+} from "../src/lib/utils";
 
 const textExtraction = async (
   folder: string,
@@ -51,13 +37,20 @@ const textExtraction = async (
 const langDetection = async (text: string): Promise<DetectLanguage> =>
   cld.detect(text);
 
-const parseEntities = async (
-  id: string,
-  file: string,
-  text: string
-): Promise<RawEntity[]> => {
+const combineLetters = async (id: string, letters: string[]) => {
+  const texts = await Promise.all(
+    letters.map(async (file: string) => await textExtraction(id, file))
+  );
+
+  const text = texts.join("\n");
+
+  return text.replace(/\n+/g, "\n");
+};
+
+const parseEntities = async (text: string): Promise<RawEntity[]> => {
   const regex = /Letter\s\d{0,3}/g;
   const entities: RawEntity[] = [];
+  const duplicates: string[] = [];
 
   let execArray: RegExpExecArray | null;
 
@@ -65,7 +58,8 @@ const parseEntities = async (
     entities.push({
       title: execArray[0],
       offset: execArray.index,
-      length: regex.lastIndex,
+      length: 0, // Will be calculated later
+      chunk: "", // Will be calculated later
     });
   }
 
@@ -74,23 +68,43 @@ const parseEntities = async (
     const nextOffset =
       nextEntity !== undefined ? nextEntity.offset : text.length;
 
+    if (nextEntity && nextEntity.title === entity.title) {
+      // One of two things is happening here:
+      // 1. The next entity was mislabeled with the same title
+      //    e.g. labeled "Letter 165" but should be "Letter 166"
+      // 2. The next entity is a part of the current entity
+      //    e.g. "Letter 149" german and "Letter 149" english
+      // There is nothiing we can do about this so we just need to
+      // capture and throw an error so we can fix it manually.
+      duplicates.push(entity.title);
+    }
+
+    // Include the title in the length
     entity.length = nextOffset - entity.offset;
+
+    // Exlude the title from the chunk
+    const chunkStart = entity.offset + entity.title.length;
+    const chunkEnd = chunkStart + (entity.length - entity.title.length);
+
+    entity.chunk = text.substring(chunkStart, chunkEnd);
   });
+
+  if (duplicates.length > 0) {
+    throw new Error(
+      `Duplicate entities found for letters \"${duplicates.join(", ")}\"`
+    );
+  }
 
   return entities;
 };
 
-const appPosts = readDirectory(postsDir);
-const sourcePosts = readDirectory(dataDir).map((file: string) => slug(file));
-const diffPosts = sourcePosts.filter(
-  (file: string) => !appPosts.includes(file)
-);
-
-// console.log(appPosts);
-// console.log(diffPosts);
-
 (async () => {
   const mappedData = {};
+  const appPosts = readDirectory(postsDir);
+  const sourcePosts = readDirectory(dataDir).map((file: string) => slug(file));
+  const diffPosts = sourcePosts.filter(
+    (file: string) => !appPosts.includes(file)
+  );
 
   await Promise.all(
     diffPosts.map(async (id: string) => {
@@ -104,8 +118,6 @@ const diffPosts = sourcePosts.filter(
         attachments: [],
       };
 
-      // console.log(folder, directory);
-
       directory.forEach((file: string) => {
         if (/^Letter.*?\.(doc|docx|txt)$/.test(file)) {
           dataMapper.letters.push(file);
@@ -118,53 +130,77 @@ const diffPosts = sourcePosts.filter(
         }
       });
 
+      // Combine multiple letters into one text extraction
+      const text = await combineLetters(id, dataMapper.letters);
+      const entities = await parseEntities(text);
+
       await Promise.all(
-        dataMapper.letters.map(async (file: string) => {
-          // Text extraction could result in error...
+        entities.map(async (entity) => {
           try {
-            const text = await textExtraction(id, file);
-            const entities = await parseEntities(id, file, text);
+            const langResult = await langDetection(entity.chunk);
 
-            await Promise.all(
-              entities.map(async (entity) => {
-                const textChunk = text.substring(
-                  entity.offset,
-                  entity.offset + entity.length
-                );
+            if (langResult.chunks.length === 0) {
+              // throw new Error(`No chunks detected for \"${entity.title}\"`);
+              // TODO: Handle this case manually...
+            } else {
+              console.log(entity.title, langResult);
 
-                try {
-                  const langResult = await langDetection(textChunk);
-
-                  console.log(entity.title, langResult);
-
-                  // TODO: Why is this not working?
-                  if (entity.title === "Letter 154") {
-                    console.log(textChunk);
-                  }
-
-                  dataMapper.pages.push({
-                    title: entity.title,
-                    german: [],
-                    english: [],
-                    // Matches the page text to it's corresponding scanned
-                    // document via file naming convention. This produces
-                    // something like the following:
-                    // Given "Letter 142" as the title we can match it to
-                    // the image with fileName "Letter_142_19381012_L_P5.jpeg"
-                    document: dataMapper.documents.find((doc) =>
-                      doc.startsWith(entity.title.replace(/\s/, "_"))
-                    ),
-                  });
-                } catch (error) {
-                  console.error(error);
-                }
-              })
-            );
+              dataMapper.pages.push({
+                title: entity.title,
+                german: [],
+                english: [],
+                // Matches the page text to it's corresponding scanned
+                // document via file naming convention. This produces
+                // something like the following:
+                // Given "Letter 142" as the title we can match it to
+                // the image with fileName "Letter_142_19381012_L_P5.jpeg"
+                document: dataMapper.documents.find((doc) =>
+                  doc.startsWith(entity.title.replace(/\s/, "_"))
+                ),
+              });
+            }
           } catch (error) {
             console.error(error);
           }
         })
       );
+
+      // await Promise.all(
+      //   dataMapper.letters.map(async (file: string) => {
+      //     try {
+      //       const text = await textExtraction(id, file);
+      //       const entities = await parseEntities(text);
+
+      //       await Promise.all(
+      //         entities.map(async (entity) => {
+      //           try {
+      //             const langResult = await langDetection(entity.chunk);
+
+      //             console.log(entity.title, langResult);
+
+      //             dataMapper.pages.push({
+      //               title: entity.title,
+      //               german: [],
+      //               english: [],
+      //               // Matches the page text to it's corresponding scanned
+      //               // document via file naming convention. This produces
+      //               // something like the following:
+      //               // Given "Letter 142" as the title we can match it to
+      //               // the image with fileName "Letter_142_19381012_L_P5.jpeg"
+      //               document: dataMapper.documents.find((doc) =>
+      //                 doc.startsWith(entity.title.replace(/\s/, "_"))
+      //               ),
+      //             });
+      //           } catch (error) {
+      //             console.error(error);
+      //           }
+      //         })
+      //       );
+      //     } catch (error) {
+      //       console.error(error);
+      //     }
+      //   })
+      // );
 
       mappedData[id] = dataMapper;
     })

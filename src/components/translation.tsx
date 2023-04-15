@@ -1,4 +1,4 @@
-import type { Page } from "../types";
+import type { Page, Language } from "../types";
 
 import { useState, useRef } from "react";
 import classNames from "classnames";
@@ -7,27 +7,9 @@ import { nanoid } from "nanoid";
 import Image from "./image";
 
 type LanguageProps = {
-  lang: string;
-  handler?: () => void;
-};
-
-const ActiveLang = ({ lang }: LanguageProps) => {
-  return (
-    <div className="text-sm font-normal leading-normal mx-1 border border-black px-2.5 py-0 rounded bg-black text-white">
-      {lang}
-    </div>
-  );
-};
-
-const InactiveLang = ({ lang, handler }: LanguageProps) => {
-  return (
-    <div
-      className="text-sm font-normal leading-normal mx-1 border border-black px-2.5 py-0 rounded cursor-pointer"
-      onClick={handler}
-    >
-      {lang}
-    </div>
-  );
+  text: string;
+  active: boolean;
+  onClick: () => void;
 };
 
 type TranslationProps = {
@@ -35,12 +17,29 @@ type TranslationProps = {
   page: Page;
 };
 
+enum LanguageMap {
+  english = "german",
+  german = "english",
+}
+
+const LangButton = ({ text, active, onClick }: LanguageProps) => {
+  const classes = `text-sm font-normal leading-normal mx-1 border border-black px-2.5 py-0 rounded${
+    active ? " bg-black text-white" : ""
+  }`;
+
+  return (
+    <button type="button" onClick={onClick} className={classes}>
+      {text}
+    </button>
+  );
+};
+
 const Translation = ({ id, page }: TranslationProps) => {
   const prioRef = useRef(false);
-  const [english, setEnglish] = useState(true);
+  const [language, setLanguage] = useState<Language>("english");
 
   const onClickLang = () => {
-    setEnglish(!english);
+    setLanguage(LanguageMap[language]);
   };
 
   const renderText = (texts: string[]) => {
@@ -72,19 +71,18 @@ const Translation = ({ id, page }: TranslationProps) => {
     <section className="anim leading-loose pb-20 sm:pb-36">
       <div className="text-center text-xl sm:text-2xl">{page.title}</div>
       <div className="mt-3 mb-5 -mx-1 flex items-center justify-center">
-        {english ? (
-          <>
-            <ActiveLang lang="English" />
-            <InactiveLang lang="German" handler={onClickLang} />
-          </>
-        ) : (
-          <>
-            <InactiveLang lang="English" handler={onClickLang} />
-            <ActiveLang lang="German" />
-          </>
-        )}
+        <LangButton
+          text="English"
+          active={language === "english"}
+          onClick={onClickLang}
+        />
+        <LangButton
+          text="German"
+          active={language === "german"}
+          onClick={onClickLang}
+        />
       </div>
-      <div>{renderText(english ? page.english : page.german)}</div>
+      <div>{renderText(page[language])}</div>
       {page.documents ? (
         page.documents.map((doc, i) => {
           return (

@@ -7,7 +7,6 @@ import Timeline from "../../src/components/timeline";
 import Article from "../../src/components/article";
 import Linkback from "../../src/components/linkback";
 import { Bookmark } from "../../src/components/bookmarks";
-import { formatDate } from "../../src/lib/date";
 import { getAllPostIds, getAllPosts, getPostData } from "../../src/lib/posts";
 
 const Post: NextPage = ({ post, posts }: PostProps) => {
@@ -16,12 +15,8 @@ const Post: NextPage = ({ post, posts }: PostProps) => {
   const subtitle = `( ${post.documents} ${text_d}, ${post.translations} ${text_t} )`;
 
   return (
-    <Layout title={formatDate(post.id)}>
-      <Masthead
-        title={formatDate(post.id)}
-        subtitle={subtitle}
-        recent={post.recent}
-      />
+    <Layout title={post.date}>
+      <Masthead title={post.date} subtitle={subtitle} recent={post.recent} />
       <Bookmark post={post} />
       <div className="flex justify-center pb-20 sm:pb-36">
         <Linkback />

@@ -28,7 +28,9 @@ yarn-error.log*
 .env*
 
 # kitajchuk
+/test/
 /data/
 /posts/
 /public/assets/
 /public/posts/
+/src/**/*.d.ts

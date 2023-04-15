@@ -6,7 +6,6 @@ import { nanoid } from "nanoid";
 
 import Star from "./star";
 import Linkback from "./linkback";
-import { formatDate } from "../lib/date";
 
 type TimelinkProps = {
   post: BasePost;
@@ -21,7 +20,7 @@ const Timelink = ({ post }: TimelinkProps) => {
       <Link href={`/posts/${post.id}`}>
         <a className="anim block">
           {post.recent ? <Star /> : null}
-          <div className="text-xl sm:text-2xl">{formatDate(post.id)}</div>
+          <div className="text-xl sm:text-2xl">{post.date}</div>
           <div className="text-sm sm:text-base mt-2 font-light">
             ( {post.documents} {text_d}, {post.translations} {text_t} )
           </div>

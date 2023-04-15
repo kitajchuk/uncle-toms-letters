@@ -12,15 +12,10 @@ import fs from "fs";
 import path from "path";
 import YAML from "yamljs";
 import imageSize from "image-size";
-
-const postsDir = path.join(process.cwd(), "posts");
-
-function readDirectory(dir: string) {
-  return fs.readdirSync(dir).filter((file) => !/^\./.test(file));
-}
+import { readFolder, postsDir, formatDate } from "./utils";
 
 function getPostFiles() {
-  const fileNames = readDirectory(postsDir);
+  const fileNames = readFolder(postsDir);
   return fileNames.filter((file) => /\.yml$/.test(file));
 }
 
@@ -64,6 +59,7 @@ export async function getAllPosts(): Promise<BasePost[]> {
       // Only return what is necessary to render the timeline...
       return {
         id,
+        date: formatDate(id),
         recent: recent || false,
         documents,
         translations,
@@ -90,6 +86,7 @@ export async function getPostData(id: string): Promise<Post> {
   // Fresh post data object to be populated
   const post: Post = {
     id,
+    date: formatDate(id),
     pages: [],
     recent: fileData.recent || false,
     documents,

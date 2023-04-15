@@ -6,5 +6,5 @@
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true
   },
-  "include": ["scripts/**/*.ts", "src/types/**/*.ts"]
+  "include": ["scripts/**/*.ts", "src/types/**/*.ts", "src/lib/**/*.ts"]
 }
