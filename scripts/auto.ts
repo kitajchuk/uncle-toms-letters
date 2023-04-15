@@ -1,10 +1,12 @@
 // Automate the post process...
 
-import type { RawData } from "../src/types";
+import type { RawData, RawEntity } from "../src/types";
+import type { DetectLanguage } from "cld";
 
 import fs from "fs";
 import path from "path";
 
+import cld from "cld";
 import textract from "@nosferatu500/textract";
 
 const dataDir = path.join(process.cwd(), "data");
@@ -46,6 +48,38 @@ const textExtraction = async (
   });
 };
 
+const langDetection = async (text: string): Promise<DetectLanguage> =>
+  cld.detect(text);
+
+const parseEntities = async (
+  id: string,
+  file: string,
+  text: string
+): Promise<RawEntity[]> => {
+  const regex = /Letter\s\d{0,3}/g;
+  const entities: RawEntity[] = [];
+
+  let execArray: RegExpExecArray | null;
+
+  while ((execArray = regex.exec(text)) !== null) {
+    entities.push({
+      title: execArray[0],
+      offset: execArray.index,
+      length: regex.lastIndex,
+    });
+  }
+
+  entities.forEach((entity: RawEntity, i: number) => {
+    const nextEntity = entities[i + 1];
+    const nextOffset =
+      nextEntity !== undefined ? nextEntity.offset : text.length;
+
+    entity.length = nextOffset - entity.offset;
+  });
+
+  return entities;
+};
+
 const appPosts = readDirectory(postsDir);
 const sourcePosts = readDirectory(dataDir).map((file: string) => slug(file));
 const diffPosts = sourcePosts.filter(
@@ -73,7 +107,7 @@ const diffPosts = sourcePosts.filter(
       // console.log(folder, directory);
 
       directory.forEach((file: string) => {
-        if (/^Letter.*?\.(docx|txt)$/.test(file)) {
+        if (/^Letter.*?\.(doc|docx|txt)$/.test(file)) {
           dataMapper.letters.push(file);
         } else if (/^Letter.*?\.(jpg|jpeg)$/.test(file)) {
           dataMapper.documents.push(file);
@@ -84,55 +118,57 @@ const diffPosts = sourcePosts.filter(
         }
       });
 
-      if (dataMapper.letters.length) {
-        await Promise.all(
-          dataMapper.letters.map(async (file: string) => {
-            // Text extraction could result in error...
-            try {
-              const text = await textExtraction(id, file);
-              const titles = text.match(/Letter\s\d{0,3}/g);
+      await Promise.all(
+        dataMapper.letters.map(async (file: string) => {
+          // Text extraction could result in error...
+          try {
+            const text = await textExtraction(id, file);
+            const entities = await parseEntities(id, file, text);
 
-              let index: number;
+            await Promise.all(
+              entities.map(async (entity) => {
+                const textChunk = text.substring(
+                  entity.offset,
+                  entity.offset + entity.length
+                );
 
-              titles.forEach((title, i) => {
-                // TODO: parse the translations from text content
-                //       which will require using match indexes and
-                //       length of text content until next match etc...
-                index = text.indexOf(title);
+                try {
+                  const langResult = await langDetection(textChunk);
 
-                const nextTitle = titles[i + 1];
-                const nextIndex =
-                  nextTitle !== undefined
-                    ? text.indexOf(nextTitle)
-                    : text.length;
+                  console.log(entity.title, langResult);
 
-                // TODO: separate german from english text blocks...
-                console.log(text.substring(index, nextIndex));
+                  // TODO: Why is this not working?
+                  if (entity.title === "Letter 154") {
+                    console.log(textChunk);
+                  }
 
-                dataMapper.pages.push({
-                  title,
-                  german: [],
-                  english: [],
-                  // Matches the page text to it's corresponding scanned
-                  // document via file naming convention. This produces
-                  // something like the following:
-                  // Given "Letter 142" as the title we can match it to
-                  // the image with fileName "Letter_142_19381012_L_P5.jpeg"
-                  document: dataMapper.documents.find((doc) =>
-                    doc.startsWith(title.replace(/\s/, "_"))
-                  ),
-                });
-              });
-            } catch (error) {
-              console.error(error);
-            }
-          })
-        );
-      }
+                  dataMapper.pages.push({
+                    title: entity.title,
+                    german: [],
+                    english: [],
+                    // Matches the page text to it's corresponding scanned
+                    // document via file naming convention. This produces
+                    // something like the following:
+                    // Given "Letter 142" as the title we can match it to
+                    // the image with fileName "Letter_142_19381012_L_P5.jpeg"
+                    document: dataMapper.documents.find((doc) =>
+                      doc.startsWith(entity.title.replace(/\s/, "_"))
+                    ),
+                  });
+                } catch (error) {
+                  console.error(error);
+                }
+              })
+            );
+          } catch (error) {
+            console.error(error);
+          }
+        })
+      );
 
       mappedData[id] = dataMapper;
     })
   );
 
-  console.log(mappedData);
+  // console.log(mappedData);
 })();

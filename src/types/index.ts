@@ -24,6 +24,12 @@ export interface RawData {
   attachments: string[];
 }
 
+export interface RawEntity {
+  title: string;
+  offset: number;
+  length: number;
+}
+
 // Data types from post SSG scripts
 // These are for the client-side application
 export type Orientation = "landscape" | "portrait";
