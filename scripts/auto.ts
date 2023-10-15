@@ -5,9 +5,12 @@ import path from "path";
 import cld from "cld";
 import textract from "@nosferatu500/textract";
 import {
+  log,
   slug,
   unslug,
   dataDir,
+  // getFlag,
+  // getFlags,
   postsDir,
   readFolder,
   readDirectory,
@@ -90,6 +93,7 @@ const parseEntities = async (text: string): Promise<RawEntity[]> => {
   });
 
   if (duplicates.length > 0) {
+    log(`Duplicate entities found for letters \"${duplicates.join(", ")}\"`);
     throw new Error(
       `Duplicate entities found for letters \"${duplicates.join(", ")}\"`
     );
@@ -164,43 +168,6 @@ const parseEntities = async (text: string): Promise<RawEntity[]> => {
           }
         })
       );
-
-      // await Promise.all(
-      //   dataMapper.letters.map(async (file: string) => {
-      //     try {
-      //       const text = await textExtraction(id, file);
-      //       const entities = await parseEntities(text);
-
-      //       await Promise.all(
-      //         entities.map(async (entity) => {
-      //           try {
-      //             const langResult = await langDetection(entity.chunk);
-
-      //             console.log(entity.title, langResult);
-
-      //             dataMapper.pages.push({
-      //               title: entity.title,
-      //               german: [],
-      //               english: [],
-      //               // Matches the page text to it's corresponding scanned
-      //               // document via file naming convention. This produces
-      //               // something like the following:
-      //               // Given "Letter 142" as the title we can match it to
-      //               // the image with fileName "Letter_142_19381012_L_P5.jpeg"
-      //               document: dataMapper.documents.find((doc) =>
-      //                 doc.startsWith(entity.title.replace(/\s/, "_"))
-      //               ),
-      //             });
-      //           } catch (error) {
-      //             console.error(error);
-      //           }
-      //         })
-      //       );
-      //     } catch (error) {
-      //       console.error(error);
-      //     }
-      //   })
-      // );
 
       mappedData[id] = dataMapper;
     })
