@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "types": ["@types/node", "@types/sharp", "@types/shelljs", "@types/yamljs"],
+    "composite": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true
+  },
+  "include": ["scripts/**/*.ts", "src/types/**/*.ts", "src/lib/**/*.ts"]
+}

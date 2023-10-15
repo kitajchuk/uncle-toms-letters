@@ -1,11 +1,21 @@
+import type { Orientation } from "../types";
+
+type ImageProps = {
+  src: string;
+  alt?: string;
+  aspect?: number;
+  priority?: boolean;
+  orientation?: Orientation;
+} & React.ImgHTMLAttributes<HTMLImageElement>;
+
 const Image = ({
-  src = "",
-  alt = "",
+  src,
+  alt,
   aspect = 75,
   priority = false,
   orientation = "landscape",
   ...rest
-}) => {
+}: ImageProps) => {
   const srcAlt = src.split("/").pop();
 
   return (

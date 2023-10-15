@@ -1,8 +1,10 @@
+import type { NextPage } from "next";
+
 import Layout from "../src/components/layout";
 import Masthead from "../src/components/masthead";
 import Linkback from "../src/components/linkback";
 
-const Page404 = () => {
+const Page404: NextPage = () => {
   return (
     <Layout title="Not Found">
       <Masthead title="Oops" subtitle="This page doesn't exist" />

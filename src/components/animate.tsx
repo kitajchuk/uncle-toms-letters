@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 
 export function Animate({ children }) {
-  const obRef = useRef();
+  const obRef = useRef<IntersectionObserver>();
 
   useEffect(() => {
     let animated = 0;

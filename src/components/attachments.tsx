@@ -1,6 +1,8 @@
+import type { PostProps } from "../types";
+
 import Image from "./image";
 
-const Attachments = ({ post }) => {
+const Attachments = ({ post }: PostProps) => {
   return (
     <aside className="anim container mx-auto max-w-screen-md px-10 sm:px-0 pb-20 sm:pb-36">
       <div className="text-center text-xl pb-12 sm:pb-16 sm:text-2xl">

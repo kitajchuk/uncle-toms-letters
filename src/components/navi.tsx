@@ -8,16 +8,16 @@ const Navi = () => {
 
   return (
     <nav className="text-center font-sans text-sm sm:text-base font-light px-5 py-5">
-      <Link href="/about">
-        <a className={isAbout ? "underline" : ""} title="About">
-          About
-        </a>
+      <Link href="/about" className={isAbout ? "underline" : ""} title="About">
+        About
       </Link>
       <span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
-      <Link href="/bookmarks">
-        <a className={isBookmarks ? "underline" : ""} title="Bookmarks">
-          Bookmarks
-        </a>
+      <Link
+        href="/bookmarks"
+        className={isBookmarks ? "underline" : ""}
+        title="Bookmarks"
+      >
+        Bookmarks
       </Link>
     </nav>
   );

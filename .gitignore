@@ -11,6 +11,7 @@
 # next.js
 /.next/
 /out/
+next-env.d.ts
 
 # production
 /build
@@ -19,16 +20,18 @@
 .DS_Store
 
 # debug
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+*.log
+# npm-debug.log*
+# yarn-debug.log*
+# yarn-error.log*
 
 # local env files
 .env*
 
 # kitajchuk
-/.idea/
+/dist/
 /data/
 /posts/
 /public/assets/
 /public/posts/
+/src/**/*.d.ts

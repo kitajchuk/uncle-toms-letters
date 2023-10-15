@@ -1,4 +1,0 @@
-{
-  "presets": ["next/babel"],
-  "plugins": ["module:@imaginary-dev/babel-transformer"]
-}

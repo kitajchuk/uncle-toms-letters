@@ -1,8 +1,9 @@
-const fs = require("fs");
-const path = require("path");
-const mkdirp = require("mkdirp");
-const sharp = require("sharp");
-const shell = require("shelljs");
+import fs from "fs";
+import path from "path";
+
+import sharp from "sharp";
+import shell from "shelljs";
+import mkdirp from "mkdirp";
 
 // Source images in local `data` directory -- ignored
 const shellCmd = "find ./data -type f";
@@ -19,10 +20,10 @@ const rRetouched = /_Retouched\/(.*?)\.(png|jpg|jpeg)$/;
 const files = shell
   .exec(shellCmd, shellOpts)
   .stdout.split("\n")
-  .filter((f) => rRetouched.test(f));
+  .filter((f: string) => rRetouched.test(f));
 
 // Process each file for Next's public directory
-files.forEach(async (file) => {
+files.forEach(async (file: string) => {
   // Get post ID to build directories
   const postID = file.replace(/\.\/data\/(.*?)\/.*?$/, (m, p1) =>
     p1.replace(/_/g, "-")
