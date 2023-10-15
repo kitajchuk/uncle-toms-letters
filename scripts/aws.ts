@@ -33,7 +33,7 @@ const s3 = new AWS.S3({
             })
               .promise()
               .then(({ Body }) => {
-                fs.writeFile(file, Body.toString(), (error) => {
+                fs.writeFile(file, Body as string, (error) => {
                   if (!error) {
                     console.log(`Wrote file ${file}`);
                   }
