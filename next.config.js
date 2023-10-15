@@ -1,13 +1,11 @@
 // @ts-check
 
-const withPreact = require("next-plugin-preact");
-
 /**
  * @type {import('next').NextConfig}
  **/
-const nextConfig = withPreact({
+const nextConfig = {
   trailingSlash: true,
   typescript: {},
-});
+};
 
 module.exports = nextConfig;

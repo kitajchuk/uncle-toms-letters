@@ -17,14 +17,12 @@ const Timelink = ({ post }: TimelinkProps) => {
 
   return (
     <li className="mb-24">
-      <Link href={`/posts/${post.id}`}>
-        <a className="anim block">
-          {post.recent ? <Star /> : null}
-          <div className="text-xl sm:text-2xl">{post.date}</div>
-          <div className="text-sm sm:text-base mt-2 font-light">
-            ( {post.documents} {text_d}, {post.translations} {text_t} )
-          </div>
-        </a>
+      <Link href={`/posts/${post.id}`} className="anim block">
+        {post.recent ? <Star /> : null}
+        <div className="text-xl sm:text-2xl">{post.date}</div>
+        <div className="text-sm sm:text-base mt-2 font-light">
+          ( {post.documents} {text_d}, {post.translations} {text_t} )
+        </div>
       </Link>
     </li>
   );
@@ -53,13 +51,11 @@ const Booklink = () => {
 const Endlink = () => {
   return (
     <li className="mb-24">
-      <Link href="/">
-        <a className="anim block">
-          <div className="text-xl sm:text-2xl">The end.</div>
-          <div className="text-sm sm:text-base mt-2 font-light">
-            ( back to the beginning )
-          </div>
-        </a>
+      <Link href="/" className="anim block">
+        <div className="text-xl sm:text-2xl">The end.</div>
+        <div className="text-sm sm:text-base mt-2 font-light">
+          ( back to the beginning )
+        </div>
       </Link>
     </li>
   );

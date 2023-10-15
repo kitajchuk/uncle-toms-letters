@@ -84,9 +84,9 @@ const Translation = ({ id, page }: TranslationProps) => {
       </div>
       <div>{renderText(page[language])}</div>
       {page.documents ? (
-        page.documents.map((doc, i) => {
+        page.documents.map((doc) => {
           return (
-            <div key={id} className="mt-10">
+            <div key={doc.src} className="mt-10">
               <Image
                 src={doc.src}
                 alt=""

@@ -3,13 +3,13 @@
   publish = "out"
 
 [context.production]
-  environment = { NODE_VERSION = "16.14.2" }
+  environment = { NODE_VERSION = "18.18.2" }
 
 [context.deploy-preview]
-  environment = { NODE_VERSION = "16.14.2" }
+  environment = { NODE_VERSION = "18.18.2" }
 
 [context.branch-deploy]
-  environment = { NODE_VERSION = "16.14.2" }
+  environment = { NODE_VERSION = "18.18.2" }
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"

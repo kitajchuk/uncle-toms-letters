@@ -25,13 +25,9 @@
     "date-fns": "^2.19.0",
     "husky": "^6.0.0",
     "nanoid": "^3.1.23",
-    "next": "^12.1.4",
-    "next-plugin-preact": "^3.0.7",
-    "preact": "^10.18.1",
-    "preact-render-to-string": "^6.2.2",
-    "react": "npm:@preact/compat",
-    "react-dom": "npm:@preact/compat",
-    "react-ssr-prepass": "npm:preact-ssr-prepass"
+    "next": "^13.5.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@nosferatu500/textract": "^3.1.3",
