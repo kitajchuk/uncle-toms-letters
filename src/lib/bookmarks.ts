@@ -9,7 +9,7 @@ export function setBookmarks(posts: BasePost[]) {
 
 export function getBookmarks(): BasePost[] | null {
   const posts = window.localStorage.getItem(store);
-  return posts ? JSON.parse(posts) : null;
+  return posts ? JSON.parse(posts) : [];
 }
 
 export function isBookmarked(post: Post) {
