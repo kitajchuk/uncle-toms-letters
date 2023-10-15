@@ -6,9 +6,6 @@
 const nextConfig = {
   trailingSlash: true,
   typescript: {},
-  images: {
-    disableStaticImages: true
-  }
 };
 
 module.exports = nextConfig;

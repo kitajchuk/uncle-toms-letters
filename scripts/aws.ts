@@ -35,12 +35,12 @@ const s3 = new AWS.S3({
               .then(({ Body }) => {
                 fs.writeFile(file, Body.toString(), (error) => {
                   if (!error) {
-                    console.log(`Wrote file ${Key}`);
+                    console.log(`Wrote file ${file}`);
                   }
                 });
               });
           } else {
-            console.log(`File already downloaded ${Key}`);
+            console.log(`File already downloaded ${file}`);
           }
         });
       });
