@@ -34,18 +34,8 @@ jobs:
           export UTL_AWS_SECRET_ACCESS_KEY="${{ secrets.UTL_AWS_SECRET_ACCESS_KEY }}"
           yarn download-s3
       - name: Lint, Test and Build
-        run: |
-          yarn build
-          yarn export
-      - name: Configure AWS CLI
-        if: ${{ github.ref == 'refs/heads/main' }}
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.UTL_AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.UTL_AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.UTL_AWS_REGION }}
+        run: yarn build
       - name: Deploy Production
         if: ${{ github.ref == 'refs/heads/main' }}
         run: |
-          aws s3 sync out ${{ secrets.UTL_S3_BUCKET }} --delete
-          aws cloudfront create-invalidation --distribution-id ${{ secrets.UTL_DISTRIBUTION_ID }} --paths '/*'
+          ls -laR out
