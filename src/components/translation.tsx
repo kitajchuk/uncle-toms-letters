@@ -1,10 +1,12 @@
-import type { Page, Language } from "../types";
+"use client";
+
+import type { Page, Language } from "@/types";
 
 import { useState, useRef } from "react";
 import classNames from "classnames";
 import { nanoid } from "nanoid";
 
-import Image from "./image";
+import Image from "@/components/image";
 
 type LanguageProps = {
   text: string;

@@ -1,11 +1,11 @@
-import type { BasePost } from "../types";
+import type { BasePost } from "@/types";
 
 import Link from "next/link";
 
 import { nanoid } from "nanoid";
 
-import Star from "./star";
-import Linkback from "./linkback";
+import Star from "@/components/star";
+import Linkback from "@/components/linkback";
 
 type TimelinkProps = {
   post: BasePost;

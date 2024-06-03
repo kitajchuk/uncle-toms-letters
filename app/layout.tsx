@@ -1,18 +1,21 @@
-import Head from "next/head";
-import Navi from "./navi";
+import "tailwindcss/tailwind.css";
+import "@/styles/global.css";
 
-import { Animate } from "./animate";
+export const metadata = {
+  title: {
+    default: "Uncle Tom's Letters",
+  },
+};
 
-type LayoutProps = {
-  title?: string;
+type Props = {
   children: React.ReactNode;
 };
 
-const Layout = ({ children, title = "Uncle Tom's Letters" }: LayoutProps) => {
+export default function RootLayout({ children }: Props) {
   return (
-    <>
-      <Head>
-        <title>{title}</title>
+    <html lang="en">
+      <head>
+        {/* title comes from page metadata */}
         <link rel="icon" href="/favicon.ico" />
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -25,11 +28,8 @@ const Layout = ({ children, title = "Uncle Tom's Letters" }: LayoutProps) => {
         />
         <link rel="apple-touch-icon" href="/logo192.png" />
         <link rel="manifest" href="/manifest.json" />
-      </Head>
-      <Navi />
-      <Animate>{children}</Animate>
-    </>
+      </head>
+      <body>{children}</body>
+    </html>
   );
-};
-
-export default Layout;
+}

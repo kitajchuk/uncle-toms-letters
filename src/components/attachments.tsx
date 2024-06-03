@@ -1,6 +1,6 @@
-import type { PostProps } from "../types";
+import type { PostProps } from "@/types";
 
-import Image from "./image";
+import Image from "@/components/image";
 
 const Attachments = ({ post }: PostProps) => {
   return (

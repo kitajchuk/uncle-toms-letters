@@ -1,7 +1,33 @@
-import type { BasePost, Post } from "../types";
+"use client";
+
+import { useEffect, useState } from "react";
+
+import type { BasePost, Post } from "@/types";
 
 // LocalStorage access key...
 const store = "utl-bookmarks";
+
+export function useBookmarks() {
+  const [posts, setPosts] = useState<BasePost[]>([]);
+
+  useEffect(() => {
+    setPosts(getBookmarks());
+  }, []);
+
+  return posts;
+}
+
+export function useIsBookmarked(
+  post: Post
+): [boolean, React.Dispatch<React.SetStateAction<boolean>>] {
+  const [bookmarked, setBookmarked] = useState(false);
+
+  useEffect(() => {
+    setBookmarked(isBookmarked(post));
+  }, [post]);
+
+  return [bookmarked, setBookmarked];
+}
 
 export function setBookmarks(posts: BasePost[]) {
   return window.localStorage.setItem(store, JSON.stringify(posts));
@@ -14,7 +40,7 @@ export function getBookmarks(): BasePost[] | null {
 
 export function isBookmarked(post: Post) {
   const posts = getBookmarks();
-  return posts.find((bm) => bm.id === post.id) ? true : false;
+  return posts.some((bm) => bm.id === post.id);
 }
 
 export function addBookmark(post: Post) {
@@ -37,10 +63,5 @@ export function addBookmark(post: Post) {
 
 export function removeBookmark(post: Post) {
   const posts = getBookmarks();
-  const found = posts.find((bm) => bm.id === post.id);
-
-  if (found) {
-    posts.splice(posts.indexOf(found), 1);
-    setBookmarks(posts);
-  }
+  setBookmarks(posts.filter((bm) => bm.id !== post.id));
 }

@@ -1,13 +1,24 @@
-import { useEffect, useRef } from "react";
+"use client";
 
-export function Animate({ children }) {
+import type { BasePost } from "@/types";
+
+import { useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
+
+type Props = {
+  posts?: BasePost[];
+};
+
+export default function Animate({ posts = [] }: Props) {
   const obRef = useRef<IntersectionObserver>();
+  const pathname = usePathname();
 
   useEffect(() => {
-    let animated = 0;
-    const elements = document.querySelectorAll(".anim");
+    const elements = document.querySelectorAll(".anim:not(.is-animated)");
 
     if (elements) {
+      let animated = 0;
+
       obRef.current = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
@@ -32,7 +43,7 @@ export function Animate({ children }) {
         }
       };
     }
-  }, [children]);
+  }, [pathname, posts]);
 
-  return children;
+  return null;
 }

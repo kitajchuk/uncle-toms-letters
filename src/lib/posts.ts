@@ -5,14 +5,14 @@ import type {
   BasePost,
   RawPost,
   RawPage,
-  StaticPath,
-} from "../types";
+  StaticParams,
+} from "@/types";
 
 import fs from "fs";
 import path from "path";
 import YAML from "yamljs";
 import imageSize from "image-size";
-import { readFolder, postsDir, formatDate } from "./utils";
+import { readFolder, postsDir, formatDate } from "@/lib/utils";
 
 function getPostFiles() {
   const fileNames = readFolder(postsDir);
@@ -35,14 +35,12 @@ function getAssetData(id: string, img: string): Asset {
   };
 }
 
-export function getAllPostIds(): StaticPath[] {
+export function getAllPostIds(): StaticParams[] {
   const fileNames = getPostFiles();
 
   return fileNames.map((fileName) => {
     return {
-      params: {
-        id: fileName.replace(/\.yml$/, ""),
-      },
+      id: fileName.replace(/\.yml$/, ""),
     };
   });
 }

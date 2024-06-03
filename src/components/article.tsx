@@ -1,9 +1,9 @@
-import type { Page, PostProps } from "../types";
+import type { Page, PostProps } from "@/types";
 
 import { nanoid } from "nanoid";
 
-import Translation from "./translation";
-import Attachments from "./attachments";
+import Translation from "@/components/translation";
+import Attachments from "@/components/attachments";
 
 const Article = ({ post }: PostProps) => {
   return (
@@ -13,7 +13,7 @@ const Article = ({ post }: PostProps) => {
           return <Translation key={nanoid()} id={post.id} page={translation} />;
         })}
       </main>
-      {post.attachments ? <Attachments post={post} /> : null}
+      {post.attachments.length > 0 ? <Attachments post={post} /> : null}
     </article>
   );
 };

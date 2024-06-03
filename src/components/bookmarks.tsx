@@ -1,41 +1,18 @@
-import type { PostProps } from "../types";
+"use client";
 
-import { useEffect, useState } from "react";
+import Masthead from "@/components/masthead";
+import Timeline from "@/components/timeline";
+import Animate from "@/components/animate";
+import { useBookmarks } from "@/lib/bookmarks";
 
-import { addBookmark, removeBookmark, isBookmarked } from "../lib/bookmarks";
-
-export const Bookmark = ({ post }: PostProps) => {
-  const [bookmarked, setBookmarked] = useState(false);
-
-  const onClickBookmark = () => {
-    setBookmarked((bm) => {
-      const newBm = !bm;
-
-      if (newBm) {
-        addBookmark(post);
-      } else {
-        removeBookmark(post);
-      }
-
-      return newBm;
-    });
-  };
-
-  useEffect(() => {
-    setBookmarked(isBookmarked(post));
-  }, [post]);
+export default function Bookmarks() {
+  const posts = useBookmarks();
 
   return (
-    <div
-      onClick={onClickBookmark}
-      className="fixed top-5 right-5 z-10 cursor-pointer"
-    >
-      <img
-        src={bookmarked ? "/svg/bookmark_saved.svg" : "/svg/bookmark.svg"}
-        alt={bookmarked ? "bookmark saved icon" : "bookmark icon"}
-        width="16"
-        height="24"
-      />
-    </div>
+    <>
+      <Masthead title="Bookmarks" subtitle="Your saved posts" />
+      <Timeline posts={posts} bookmarks={true} />
+      <Animate posts={posts} />
+    </>
   );
-};
+}

@@ -1,4 +1,4 @@
-import Star from "./star";
+import Star from "@/components/star";
 
 type MastheadProps = {
   title: string;

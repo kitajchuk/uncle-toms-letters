@@ -1,10 +1,12 @@
+"use client";
+
 import Link from "next/link";
-import { useRouter } from "next/router";
+import { usePathname } from "next/navigation";
 
 const Navi = () => {
-  const router = useRouter();
-  const isAbout = router.route === "/about";
-  const isBookmarks = router.route === "/bookmarks";
+  const pathname = usePathname();
+  const isAbout = pathname.startsWith("/about");
+  const isBookmarks = pathname.startsWith("/bookmarks");
 
   return (
     <nav className="text-center font-sans text-sm sm:text-base font-light px-5 py-5">

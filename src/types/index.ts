@@ -67,17 +67,12 @@ export interface Post extends BasePost {
 }
 
 // Data types for SSG async functions
-export interface StaticPath {
-  params: {
-    id: string;
-  };
+export interface StaticParams {
+  id: string;
 }
 
-export interface StaticProps {
-  props: {
-    post?: Post;
-    posts?: Post[] | BasePost[];
-  };
+export interface ParamsProps {
+  params: StaticParams;
 }
 
 // Data types for client-side component props
