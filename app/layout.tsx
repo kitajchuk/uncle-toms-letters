@@ -1,9 +1,12 @@
 import "tailwindcss/tailwind.css";
 import "@/styles/global.css";
+import Navi from "@/components/navi";
+import Animate from "@/components/animate";
 
 export const metadata = {
   title: {
     default: "Uncle Tom's Letters",
+    template: "%s | Uncle Tom's Letters",
   },
 };
 
@@ -29,7 +32,11 @@ export default function RootLayout({ children }: Props) {
         <link rel="apple-touch-icon" href="/logo192.png" />
         <link rel="manifest" href="/manifest.json" />
       </head>
-      <body>{children}</body>
+      <body>
+        <Navi />
+        {children}
+        <Animate />
+      </body>
     </html>
   );
 }
