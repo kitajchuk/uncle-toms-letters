@@ -5,7 +5,8 @@ import { parseISO, format } from "date-fns";
 export const distDir = path.join(process.cwd(), "dist");
 export const dataDir = path.join(process.cwd(), "data");
 export const postsDir = path.join(process.cwd(), "posts");
-export const logFile = path.join(process.cwd(), "logs.txt");
+export const dryRunDir = path.join(process.cwd(), "dry-run");
+export const logFile = path.join(process.cwd(), "scripts.log");
 
 export const dotFormat = /^\./;
 export const postFormat = /^\d\d\d\d(-|_)\d\d(-|_)\d\d$/;
@@ -30,6 +31,8 @@ const flags = process.argv.slice(2);
 export const getFlag = (flag: string) => flags.includes(flag);
 
 export const getFlags = () => flags;
+
+export const emptyLogs = () => fs.writeFileSync(logFile, "");
 
 export const log = (message: string) => {
   const date = new Date();

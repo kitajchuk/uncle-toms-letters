@@ -17,8 +17,8 @@ export interface RawPost {
 
 export interface RawData {
   id: string;
-  id_: string;
   pages: RawPage[];
+  recent?: boolean;
   letters: string[];
   documents: string[];
   attachments: string[];
@@ -29,6 +29,12 @@ export interface RawEntity {
   offset: number;
   length: number;
   chunk: string;
+  splitChunks: string[];
+}
+
+export interface RawLang {
+  german: string[];
+  english: string[];
 }
 
 // Data types from post SSG scripts

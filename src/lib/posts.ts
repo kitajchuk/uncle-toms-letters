@@ -22,6 +22,17 @@ function getPostFiles() {
 function getAssetData(id: string, img: string): Asset {
   const imgPath = path.join(process.cwd(), `public/assets/${id}/${img}`);
   const imgSrc = `/assets/${id}/${img}`;
+
+  if (!fs.existsSync(imgPath)) {
+    return {
+      alt: img,
+      src: "https://placehold.co/600x400",
+      dims: { width: 600, height: 400 },
+      aspect: (400 / 600) * 100,
+      orientation: "landscape",
+    };
+  }
+
   const imgDims = imageSize(imgPath);
   const imgOrientation =
     imgDims.height > imgDims.width ? "portrait" : "landscape";

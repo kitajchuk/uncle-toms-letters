@@ -32,6 +32,7 @@ next-env.d.ts
 /dist/
 /data/
 /posts/
+/dry-run/
 /public/assets/
 /public/posts/
 /src/**/*.d.ts
