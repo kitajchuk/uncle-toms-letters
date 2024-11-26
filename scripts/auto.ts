@@ -9,13 +9,24 @@ import {
   log,
   slug,
   unslug,
+  distDir,
   dataDir,
+  getFlag,
   postsDir,
+  emptyDir,
   emptyLogs,
   dryRunDir,
+  docFormat,
   readFolder,
+  imageFormat,
   readDirectory,
 } from "../src/lib/utils";
+
+const dist = getFlag("--dist");
+const dryRun = getFlag("--dry-run");
+
+const srcDir = dist ? distDir : dataDir;
+const destDir = dryRun ? dryRunDir : postsDir;
 
 const textExtraction = async (
   folder: string,
@@ -23,7 +34,7 @@ const textExtraction = async (
 ): Promise<string> => {
   return new Promise((resolve, reject) => {
     textract.fromFileWithPath(
-      path.join(dataDir, unslug(folder), file),
+      path.join(srcDir, unslug(folder), file),
       {
         preserveLineBreaks: true,
       },
@@ -139,22 +150,24 @@ const parseEntities = async (text: string): Promise<RawEntity[]> => {
   return entities;
 };
 
-const convertImages = (file: string) =>
-  file.replace(/\.(png|jpg|jpeg)$/, ".webp");
+const convertImages = (file: string) => file.replace(imageFormat, ".webp");
 
 (async () => {
+  emptyLogs();
+  emptyDir(dryRunDir);
+
   const mappedData: Record<string, RawData> = {};
-  const appPosts = readDirectory(postsDir);
-  const sourcePosts = readDirectory(dataDir).map((file: string) => slug(file));
+  const appPosts = readDirectory(destDir);
+  const sourcePosts = readDirectory(srcDir).map((file: string) => slug(file));
   const diffPosts = sourcePosts.filter(
     (file: string) => !appPosts.includes(file)
   );
 
-  emptyLogs();
+  console.log({ srcDir, destDir });
 
   await Promise.all(
     diffPosts.map(async (id: string) => {
-      const directory = readFolder(path.join(dataDir, unslug(id)));
+      const directory = readFolder(path.join(srcDir, unslug(id)));
       const dataMapper: RawData = {
         id,
         pages: [],
@@ -165,12 +178,10 @@ const convertImages = (file: string) =>
       };
 
       directory.forEach((file: string) => {
-        if (/^Letter.*?\.(doc|docx|txt)$/.test(file)) {
+        if (docFormat.test(file)) {
           dataMapper.letters.push(file);
-        } else if (/^Letter.*?\.(jpg|jpeg)$/.test(file)) {
+        } else if (imageFormat.test(file)) {
           dataMapper.documents.push(convertImages(file));
-        } else if (/\.(jpg|jpeg)$/.test(file)) {
-          dataMapper.attachments.push(convertImages(file));
         } else {
           console.log("Could not map file", id, file);
         }
